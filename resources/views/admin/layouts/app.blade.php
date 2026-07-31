@@ -15,9 +15,6 @@
   <link rel="stylesheet" href="{{ asset('assets/vendors/iconfonts/font-awesome/css/all.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.addons.css') }}">
-
-  
-
   <!-- Template Main CSS File -->
  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <!-- endinject -->
@@ -31,7 +28,7 @@
         <!-- ======= Header ======= -->
    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="index-2.html"><img src="images/logo.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="index-2.html"><img src="{{ asset('assets/images/logo.png') }}" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -392,36 +389,25 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item nav-profile">
-            <div class="nav-link">
-              <div class="profile-image">
-                <img src="images/faces/face5.jpg" alt="image"/>
-              </div>
-              <div class="profile-name">
-                <p class="name">
-                  Welcome Jane
-                </p>
-                <p class="designation">
-                  Super Admin
-                </p>
-              </div>
-            </div>
+            
           </li>
           <li class="nav-item">
             <a class="nav-link" href="index-2.html">
               <i class="fa fa-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
+               <i class="menu-arrow"></i>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="pages/widgets.html">
               <i class="fa fa-puzzle-piece menu-icon"></i>
-              <span class="menu-title">Widgets</span>
+              <span class="menu-title">User Management</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
               <i class="fab fa-trello menu-icon"></i>
-              <span class="menu-title">Page Layouts</span>
+              <span class="menu-title">Department</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="page-layouts">
@@ -435,7 +421,7 @@
           <li class="nav-item d-none d-lg-block">
             <a class="nav-link" data-toggle="collapse" href="#sidebar-layouts" aria-expanded="false" aria-controls="sidebar-layouts">
               <i class="fas fa-columns menu-icon"></i>
-              <span class="menu-title">Sidebar Layouts</span>
+              <span class="menu-title">Doctor Management</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="sidebar-layouts">
@@ -451,7 +437,7 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="far fa-compass menu-icon"></i>
-              <span class="menu-title">Basic UI Elements</span>
+              <span class="menu-title">Patient Management</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
@@ -473,7 +459,7 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-advanced" aria-expanded="false" aria-controls="ui-advanced">
               <i class="fas fa-clipboard-list menu-icon"></i>
-              <span class="menu-title">Advanced Elements</span>
+              <span class="menu-title">Appointment Management</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-advanced">
@@ -491,7 +477,7 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
               <i class="fab fa-wpforms menu-icon"></i>
-              <span class="menu-title">Form elements</span>
+              <span class="menu-title">Doctor Schedule</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="form-elements">
@@ -506,7 +492,7 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#editors" aria-expanded="false" aria-controls="editors">
               <i class="fas fa-pen-square menu-icon"></i>
-              <span class="menu-title">Editors</span>
+              <span class="menu-title">Queue Management</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="editors">
@@ -519,7 +505,7 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
               <i class="fas fa-chart-pie menu-icon"></i>
-              <span class="menu-title">Charts</span>
+              <span class="menu-title">Medical Records</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="charts">
@@ -538,7 +524,7 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
               <i class="fas fa-table menu-icon"></i>
-              <span class="menu-title">Tables</span>
+              <span class="menu-title">Prescription Modules</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="tables">
@@ -553,9 +539,24 @@
           <li class="nav-item">
             <a class="nav-link" href="pages/ui-features/popups.html">
               <i class="fas fa-minus-square menu-icon"></i>
-              <span class="menu-title">Popups</span>
+              <span class="menu-title">laboratory management</span>
             </a>
           </li>
+
+           <li class="nav-item">
+            <a class="nav-link" href="pages/ui-features/popups.html">
+              <i class="fas fa-minus-square menu-icon"></i>
+              <span class="menu-title">Pharmacy</span>
+            </a>
+          </li>
+
+           <li class="nav-item">
+            <a class="nav-link" href="pages/ui-features/popups.html">
+              <i class="fas fa-minus-square menu-icon"></i>
+              <span class="menu-title">Billing</span>
+            </a>
+          </li>
+
           <li class="nav-item">
             <a class="nav-link" href="pages/ui-features/notifications.html">
               <i class="fas fa-bell menu-icon"></i>
@@ -580,7 +581,7 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#maps" aria-expanded="false" aria-controls="maps">
               <i class="fas fa-map-marker-alt menu-icon"></i>
-              <span class="menu-title">Maps</span>
+              <span class="menu-title">Reports</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="maps">
@@ -594,7 +595,7 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <i class="fas fa-window-restore menu-icon"></i>
-              <span class="menu-title">User Pages</span>
+              <span class="menu-title">Calender</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auth">
@@ -623,7 +624,7 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
               <i class="fas fa-file menu-icon"></i>
-              <span class="menu-title">General Pages</span>
+              <span class="menu-title">CMS moduels</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="general-pages">
