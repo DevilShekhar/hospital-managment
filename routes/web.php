@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DesignerDashboardController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\admin\RolesController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,6 +19,7 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', [DesignerDashboardController::class, 'index'])->name('dashboard');
    Route::resource('users', UserController::class);
+   Route::resource('roles', RolesController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -26,3 +28,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+});

@@ -112,17 +112,7 @@
 <input type="text" class="form-control" name="pincode">
 </div>
 
-<div class="col-md-12">
-<h5>Permissions</h5>
-<label><input type="checkbox" name="permissions[]" value="dashboard"> Dashboard</label><br>
-<label><input type="checkbox" name="permissions[]" value="patients"> Patients</label><br>
-<label><input type="checkbox" name="permissions[]" value="appointments"> Appointments</label><br>
-<label><input type="checkbox" name="permissions[]" value="billing"> Billing</label><br>
-<label><input type="checkbox" name="permissions[]" value="pharmacy"> Pharmacy</label><br>
-<label><input type="checkbox" name="permissions[]" value="laboratory"> Laboratory</label><br>
-<label><input type="checkbox" name="permissions[]" value="reports"> Reports</label><br>
-<label><input type="checkbox" name="permissions[]" value="users"> User Management</label>
-</div>
+
 
 </div>
 </div>

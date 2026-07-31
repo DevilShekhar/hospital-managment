@@ -1,186 +1,53 @@
 @extends('admin.layouts.app')
 
 @section('content')
-
 <div class="content-wrapper">
-          <div class="page-header">
-            <h3 class="page-title">
-              Data table
-            </h3>
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data table</li>
-              </ol>
-            </nav>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">Data table</h4>
-              <div class="row">
-                <div class="col-12">
-                  <div class="table-responsive">
-                    <table id="order-listing" class="table">
-                      <thead>
-                        <tr>
-                            <th>Order #</th>
-                            <th>Purchased On</th>
-                            <th>Customer</th>
-                            <th>Ship to</th>
-                            <th>Base Price</th>
-                            <th>Purchased Price</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>2012/08/03</td>
-                            <td>Edinburgh</td>
-                            <td>New York</td>
-                            <td>$1500</td>
-                            <td>$3200</td>
-                            <td>
-                              <label class="badge badge-info">On hold</label>
-                            </td>
-                            <td>
-                              <button class="btn btn-outline-primary">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>2015/04/01</td>
-                            <td>Doe</td>
-                            <td>Brazil</td>
-                            <td>$4500</td>
-                            <td>$7500</td>
-                            <td>
-                              <label class="badge badge-danger">Pending</label>
-                            </td>
-                            <td>
-                              <button class="btn btn-outline-primary">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>2010/11/21</td>
-                            <td>Sam</td>
-                            <td>Tokyo</td>
-                            <td>$2100</td>
-                            <td>$6300</td>
-                            <td>
-                              <label class="badge badge-success">Closed</label>
-                            </td>
-                            <td>
-                              <button class="btn btn-outline-primary">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>2016/01/12</td>
-                            <td>Sam</td>
-                            <td>Tokyo</td>
-                            <td>$2100</td>
-                            <td>$6300</td>
-                            <td>
-                              <label class="badge badge-success">Closed</label>
-                            </td>
-                            <td>
-                              <button class="btn btn-outline-primary">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>2017/12/28</td>
-                            <td>Sam</td>
-                            <td>Tokyo</td>
-                            <td>$2100</td>
-                            <td>$6300</td>
-                            <td>
-                              <label class="badge badge-success">Closed</label>
-                            </td>
-                            <td>
-                              <button class="btn btn-outline-primary">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>2000/10/30</td>
-                            <td>Sam</td>
-                            <td>Tokyo</td>
-                            <td>$2100</td>
-                            <td>$6300</td>
-                            <td>
-                              <label class="badge badge-info">On-hold</label>
-                            </td>
-                            <td>
-                              <button class="btn btn-outline-primary">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>2011/03/11</td>
-                            <td>Cris</td>
-                            <td>Tokyo</td>
-                            <td>$2100</td>
-                            <td>$6300</td>
-                            <td>
-                              <label class="badge badge-success">Closed</label>
-                            </td>
-                            <td>
-                              <button class="btn btn-outline-primary">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>2015/06/25</td>
-                            <td>Tim</td>
-                            <td>Italy</td>
-                            <td>$6300</td>
-                            <td>$2100</td>
-                            <td>
-                              <label class="badge badge-info">On-hold</label>
-                            </td>
-                            <td>
-                              <button class="btn btn-outline-primary">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>2016/11/12</td>
-                            <td>John</td>
-                            <td>Tokyo</td>
-                            <td>$2100</td>
-                            <td>$6300</td>
-                            <td>
-                              <label class="badge badge-success">Closed</label>
-                            </td>
-                            <td>
-                              <button class="btn btn-outline-primary">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>2003/12/26</td>
-                            <td>Tom</td>
-                            <td>Germany</td>
-                            <td>$1100</td>
-                            <td>$2300</td>
-                            <td>
-                              <label class="badge badge-danger">Pending</label>
-                            </td>
-                            <td>
-                              <button class="btn btn-outline-primary">View</button>
-                            </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+<div class="page-header">
+<h3 class="page-title">User Management</h3>
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="#">User Management</a></li>
+<li class="breadcrumb-item active">User List</li>
+</ol>
+</nav>
+</div>
 
+<div class="card">
+<div class="card-body">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+<h4 class="card-title">Hospital Users</h4>
+<a href="{{ route('users.create') }}" class="btn btn-primary">+ Create User</a>
+</div>
+
+<div class="row mb-3">
+<div class="col-md-4">
+<input type="text" class="form-control" placeholder="Search User">
+</div>
+<div class="col-md-3">
+<select class="form-control">
+<option>All Status</option>
+<option>Active</option>
+<option>Inactive</option>
+</select>
+</div>
+</div>
+
+<div class="table-responsive">
+<table id="order-listing" class="table table-bordered table-hover">
+<thead>
+<tr>
+<th>ID</th><th>Employee ID</th><th>Name</th><th>Role</th><th>Department</th><th>Email</th><th>Mobile</th><th>Status</th><th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>EMP001</td><td>Dr. Rajesh Sharma</td><td>Doctor</td><td>Cardiology</td><td>rajesh@hospital.com</td><td>9876543210</td><td><label class="badge badge-success">Active</label></td><td><a href="#" class="btn btn-sm btn-info">View</a> <a href="#" class="btn btn-sm btn-warning">Edit</a> <a href="#" class="btn btn-sm btn-danger">Delete</a></td></tr>
+<tr><td>2</td><td>EMP002</td><td>Priya Patel</td><td>Nurse</td><td>Emergency</td><td>priya@hospital.com</td><td>9876543211</td><td><label class="badge badge-success">Active</label></td><td><a href="#" class="btn btn-sm btn-info">View</a> <a href="#" class="btn btn-sm btn-warning">Edit</a> <a href="#" class="btn btn-sm btn-danger">Delete</a></td></tr>
+<tr><td>3</td><td>EMP003</td><td>Amit Verma</td><td>Receptionist</td><td>Reception</td><td>amit@hospital.com</td><td>9876543212</td><td><label class="badge badge-danger">Inactive</label></td><td><a href="#" class="btn btn-sm btn-info">View</a> <a href="#" class="btn btn-sm btn-warning">Edit</a> <a href="#" class="btn btn-sm btn-danger">Delete</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 @endsection
