@@ -2,52 +2,109 @@
 
 @section('content')
 <div class="content-wrapper">
-<div class="page-header">
-<h3 class="page-title">User Management</h3>
-<nav aria-label="breadcrumb">
-<ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="#">User Management</a></li>
-<li class="breadcrumb-item active">User List</li>
-</ol>
-</nav>
-</div>
+    <div class="page-header">
+        <h3 class="page-title">User Management</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">User Management</a></li>
+                <li class="breadcrumb-item active">User List</li>
+            </ol>
+        </nav>
+    </div>
 
-<div class="card">
-<div class="card-body">
+    <div class="card">
+        <div class="card-body">
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-<h4 class="card-title">Hospital Users</h4>
-<a href="{{ route('users.create') }}" class="btn btn-primary">+ Create User</a>
-</div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="card-title">Hospital Users</h4>
+                <a href="{{ route('users.create') }}" class="btn btn-primary">+ Create User</a>
+            </div>
 
-<div class="row mb-3">
-<div class="col-md-4">
-<input type="text" class="form-control" placeholder="Search User">
-</div>
-<div class="col-md-3">
-<select class="form-control">
-<option>All Status</option>
-<option>Active</option>
-<option>Inactive</option>
-</select>
-</div>
-</div>
+            {{-- Flash Success Message --}}
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-<div class="table-responsive">
-<table id="order-listing" class="table table-bordered table-hover">
-<thead>
-<tr>
-<th>ID</th><th>Employee ID</th><th>Name</th><th>Role</th><th>Department</th><th>Email</th><th>Mobile</th><th>Status</th><th>Action</th>
-</tr>
-</thead>
-<tbody>
-<tr><td>1</td><td>EMP001</td><td>Dr. Rajesh Sharma</td><td>Doctor</td><td>Cardiology</td><td>rajesh@hospital.com</td><td>9876543210</td><td><label class="badge badge-success">Active</label></td><td><a href="#" class="btn btn-sm btn-info">View</a> <a href="#" class="btn btn-sm btn-warning">Edit</a> <a href="#" class="btn btn-sm btn-danger">Delete</a></td></tr>
-<tr><td>2</td><td>EMP002</td><td>Priya Patel</td><td>Nurse</td><td>Emergency</td><td>priya@hospital.com</td><td>9876543211</td><td><label class="badge badge-success">Active</label></td><td><a href="#" class="btn btn-sm btn-info">View</a> <a href="#" class="btn btn-sm btn-warning">Edit</a> <a href="#" class="btn btn-sm btn-danger">Delete</a></td></tr>
-<tr><td>3</td><td>EMP003</td><td>Amit Verma</td><td>Receptionist</td><td>Reception</td><td>amit@hospital.com</td><td>9876543212</td><td><label class="badge badge-danger">Inactive</label></td><td><a href="#" class="btn btn-sm btn-info">View</a> <a href="#" class="btn btn-sm btn-warning">Edit</a> <a href="#" class="btn btn-sm btn-danger">Delete</a></td></tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
+            {{-- Filter & Search Row --}}
+           
+            <div class="table-responsive">
+                <table id="order-listing" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Employee ID</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($users as $user)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    <span class="font-weight-bold">{{ $user->employee_id ?? 'N/A' }}</span>
+                                </td>
+                                <td>
+                                    {{ $user->first_name }} {{ $user->last_name }}
+                                </td>
+                                <td>
+                                    @forelse($user->roles as $role)
+                                        <span class="badge badge-info">{{ $role->name }}</span>
+                                    @empty
+                                        <span class="badge badge-secondary">No Role</span>
+                                    @endforelse
+                                </td>
+                                <td>
+                                    {{ $user->department->name ?? 'N/A' }}
+                                </td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->mobile ?? 'N/A' }}</td>
+                                <td>
+                                    @if($user->status == 1)
+                                        <label class="badge badge-success">Active</label>
+                                    @else
+                                        <label class="badge badge-danger">Inactive</label>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-info">View</a>
+                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                    
+                                    {{-- Delete Form --}}
+                                    <form action="{{ route('users.destroy', $user->id) }}" 
+                                          method="POST" 
+                                          class="d-inline" 
+                                          onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="9" class="text-center py-4">
+                                    <p class="text-muted mb-0">No users found in database.</p>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+            {{-- Pagination Links --}}
+            <div class="mt-3 d-flex justify-content-end">
+                {{ $users->links() }}
+            </div>
+
+        </div>
+    </div>
 </div>
 @endsection
