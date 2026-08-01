@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
@@ -11,12 +11,12 @@ class DepartmentController extends Controller
     public function index()
     {
         $departments = Department::latest()->paginate(10);
-        return view('departments.index', compact('departments'));
+        return view('admin.departments.index', compact('departments'));
     }
 
     public function create()
     {
-        return view('departments.create');
+        return view('admin.departments.create');
     }
 
     public function store(Request $request)
@@ -29,12 +29,12 @@ class DepartmentController extends Controller
 
         Department::create($request->all());
 
-        return redirect()->route('departments.index')->with('success', 'Department created successfully.');
+        return redirect()->route('admin.departments.index')->with('success', 'Department created successfully.');
     }
 
     public function edit(Department $department)
     {
-        return view('departments.edit', compact('department'));
+        return view('admin.departments.edit', compact('department'));
     }
 
     public function update(Request $request, Department $department)
@@ -47,12 +47,12 @@ class DepartmentController extends Controller
 
         $department->update($request->all());
 
-        return redirect()->route('departments.index')->with('success', 'Department updated successfully.');
+        return redirect()->route('admin.departments.index')->with('success', 'Department updated successfully.');
     }
 
     public function destroy(Department $department)
     {
         $department->delete();
-        return redirect()->route('departments.index')->with('success', 'Department deleted successfully.');
+        return redirect()->route('admin.departments.index')->with('success', 'Department deleted successfully.');
     }
 }

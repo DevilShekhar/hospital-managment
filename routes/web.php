@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DesignerDashboardController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\RolesController;
+use App\Http\Controllers\admin\DepartmentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,6 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('users', UserController::class);
     Route::resource('roles', RolesController::class);
+    Route::resource('departments', DepartmentController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
