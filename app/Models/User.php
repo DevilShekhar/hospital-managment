@@ -28,6 +28,7 @@ class User extends Authenticatable
         'city',
         'state',
         'pincode',
+        'status',
     ];
 
     protected $hidden = [
