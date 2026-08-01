@@ -483,42 +483,32 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#departmentManagement" aria-expanded="false"
-              aria-controls="departmentManagement">
-
               <a class="nav-link" data-toggle="collapse" href="#departmentManagement" aria-expanded="false"
                 aria-controls="departmentManagement">
                 <i class="fab fa-trello menu-icon"></i>
-                <span class="menu-title">Department</span>
+                <span class="menu-title">Department Management</span>
                 <i class="menu-arrow"></i>
               </a>
               <div class="collapse" id="departmentManagement" data-parent="#sidebar">
-
-                <div class="collapse" id="departmentManagement">
                   <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                       <a class="nav-link" href="{{ route('departments.create') }}">
-
                         Create Department
                       </a>
                     </li>
-
                     <li class="nav-item">
                       <a class="nav-link" href="{{ route('departments.index') }}">
                         Department List
                       </a>
                     </li>
-
                     <li class="nav-item">
                       <a class="nav-link" href="{{ route('departments.edit', 1) }}">
                         Edit Department
-
                       </a>
                     </li>
                   </ul>
-                </div>
+              </div>
           </li>
-          
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#doctorManagement" aria-expanded="false"
               aria-controls="doctorManagement">
@@ -526,24 +516,15 @@
               <span class="menu-title">Doctor Management</span>
               <i class="menu-arrow"></i>
             </a>
-
             <div class="collapse" id="doctorManagement" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
-
-
-
                 <li class="nav-item">
                   <a class="nav-link" href="{{ route('doctors.index') }}">
                     Doctor List
                   </a>
                 </li>
-
-
-
-
               </ul>
             </div>
-
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
