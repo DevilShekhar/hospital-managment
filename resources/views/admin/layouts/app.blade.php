@@ -19,6 +19,8 @@
  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <!-- endinject -->
   <link rel="shortcut icon" href="http://www.urbanui.com/" />
+  <!-- SweetAlert2 CSS & JS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 </head>
@@ -460,14 +462,25 @@
           </li>
           
           <li class="nav-item">
+ DoctorManagement
     <a class="nav-link"data-toggle="collapse"href="#departmentManagement"aria-expanded="false"aria-controls="departmentManagement">
+
+    <a class="nav-link"
+       data-toggle="collapse"
+       href="#departmentManagement"
+       aria-expanded="false"
+       aria-controls="departmentManagement">
+ 
 
         <i class="fab fa-trello menu-icon"></i>
         <span class="menu-title">Department</span>
         <i class="menu-arrow"></i>
     </a>
 
+ DoctorManagement
     <div class="collapse" id="departmentManagement"data-parent="#sidebar">
+
+    <div class="collapse" id="departmentManagement">
         <ul class="nav flex-column sub-menu">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('departments.create') }}">
@@ -783,7 +796,38 @@
       <script src="{{ asset('assets/js/data-table.js') }}"></script>
       <!-- End custom js for this page--> 
       
+    <script>
+        function confirmDelete(userId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this user deletion!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit the specific form using its unique ID
+                    document.getElementById('delete-form-' + userId).submit();
+                }
+            });
+        }
+    </script>
 
+    {{-- Auto-trigger SweetAlert for Success Flash Messages --}}
+      @if(session('success'))
+          <script>
+              Swal.fire({
+                  icon: 'success',
+                  title: 'Success!',
+                  text: "{{ session('success') }}",
+                  timer: 3000,
+                  showConfirmButton: false
+              });
+          </script>
+      @endif
 
     </body>
 
