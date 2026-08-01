@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
+
+
 <div class="card">
     <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
