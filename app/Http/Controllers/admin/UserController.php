@@ -13,11 +13,16 @@ use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
     /**
-     * Display a listing of users.
+     * Display a listing of ACTIVE users (status = 1).
      */
     public function index()
     {
-        $users = User::with(['roles', 'department'])->latest()->paginate(10);
+        // Status 1 aslele users fetch hotiil (Status 0 wale list madhun hide hotiil)
+        $users = User::with(['roles', 'department'])
+                     ->where('status', 1)
+                     ->latest()
+                     ->paginate(10);
+
         return view('admin.user.index', compact('users'));
     }
 
@@ -75,7 +80,7 @@ class UserController extends Controller
             'department_id' => $request->department_id,
             'password'      => Hash::make($request->password),
             'photo'         => $photoPath,
-            'status'        => $request->status,
+            'status'        => $request->status, 
             'address'       => $request->address,
             'city'          => $request->city,
             'state'         => $request->state,
@@ -88,18 +93,12 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
-    /**
-     * Display the specified user profile details.
-     */
     public function show(User $user)
     {
         $user->load(['department', 'roles']);
         return view('admin.user.show', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified user.
-     */
     public function edit(User $user)
     {
         $departments = Department::all();
@@ -171,17 +170,11 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
-    /**
-     * Remove the specified user from database.
-     */
     public function destroy(User $user)
     {
-        // Delete profile photo if exists
-        if ($user->photo && Storage::disk('public')->exists($user->photo)) {
-            Storage::disk('public')->delete($user->photo);
-        }
-
-        $user->delete();
+        $user->update([
+            'status' => 0
+        ]);
 
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }

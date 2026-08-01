@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
- <meta charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Melody Admin</title>
 
@@ -10,28 +10,29 @@
   <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
   <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
-   
+
   <!-- Vendor CSS Files -->
   <link rel="stylesheet" href="{{ asset('assets/vendors/iconfonts/font-awesome/css/all.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.addons.css') }}">
   <!-- Template Main CSS File -->
- <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <!-- endinject -->
   <link rel="shortcut icon" href="http://www.urbanui.com/" />
   <!-- SweetAlert2 CSS & JS CDN -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 </head>
 
 <body>
-    <div class="container-scroller">
-        <!-- ======= Header ======= -->
-   <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
+  <div class="container-scroller">
+    <!-- ======= Header ======= -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="index-2.html"><img src="{{ asset('assets/images/logo.png') }}" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="index-2.html"><img src="{{ asset('assets/images/logo.png') }}"
+            alt="logo" /></a>
+        <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="images/logo-mini.svg" alt="logo" /></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -59,7 +60,8 @@
           </li>
           <li class="nav-item dropdown d-none d-lg-flex">
             <div class="nav-link">
-              <span class="dropdown-toggle btn btn-outline-dark" id="languageDropdown" data-toggle="dropdown">English</span>
+              <span class="dropdown-toggle btn btn-outline-dark" id="languageDropdown"
+                data-toggle="dropdown">English</span>
               <div class="dropdown-menu navbar-dropdown" aria-labelledby="languageDropdown">
                 <a class="dropdown-item font-weight-medium" href="#">
                   French
@@ -80,11 +82,13 @@
             </div>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
+              data-toggle="dropdown">
               <i class="fas fa-bell mx-0"></i>
               <span class="count">16</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+              aria-labelledby="notificationDropdown">
               <a class="dropdown-item">
                 <p class="mb-0 font-weight-normal float-left">You have 16 new notifications
                 </p>
@@ -135,11 +139,13 @@
             </div>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown"
+              aria-expanded="false">
               <i class="fas fa-envelope mx-0"></i>
               <span class="count">25</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+              aria-labelledby="messageDropdown">
               <div class="dropdown-item">
                 <p class="mb-0 font-weight-normal float-left">You have 7 unread mails
                 </p>
@@ -148,7 +154,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
-                    <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
+                  <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="preview-item-content flex-grow">
                   <h6 class="preview-subject ellipsis font-weight-medium">David Grey
@@ -162,7 +168,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
-                    <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
+                  <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="preview-item-content flex-grow">
                   <h6 class="preview-subject ellipsis font-weight-medium">Tim Cook
@@ -176,7 +182,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
-                    <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
+                  <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="preview-item-content flex-grow">
                   <h6 class="preview-subject ellipsis font-weight-medium"> Johnson
@@ -191,28 +197,28 @@
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="images/faces/face5.jpg" alt="profile"/>
+              <img src="images/faces/face5.jpg" alt="profile" />
             </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                {{-- Settings Item --}}
-                <a class="dropdown-item" href="#">
-                    <i class="fas fa-cog text-primary"></i>
-                    Settings
-                </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              {{-- Settings Item --}}
+              <a class="dropdown-item" href="#">
+                <i class="fas fa-cog text-primary"></i>
+                Settings
+              </a>
 
-                <div class="dropdown-divider"></div>
+              <div class="dropdown-divider"></div>
 
-                {{-- Logout Item --}}
-                <a class="dropdown-item" href="{{ route('logout') }}" 
-                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fas fa-power-off text-primary"></i>
-                    Logout
-                </a>
+              {{-- Logout Item --}}
+              <a class="dropdown-item" href="{{ route('logout') }}"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="fas fa-power-off text-primary"></i>
+                Logout
+              </a>
 
-                {{-- Hidden Form Required for POST Request --}}
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
+              {{-- Hidden Form Required for POST Request --}}
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+              </form>
             </div>
           </li>
           <li class="nav-item nav-settings d-none d-lg-block">
@@ -221,7 +227,8 @@
             </a>
           </li>
         </ul>
-        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+          data-toggle="offcanvas">
           <span class="fas fa-bars"></span>
         </button>
       </div>
@@ -233,8 +240,12 @@
         <div id="theme-settings" class="settings-panel">
           <i class="settings-close fa fa-times"></i>
           <p class="settings-heading">SIDEBAR SKINS</p>
-          <div class="sidebar-bg-options selected" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border mr-3"></div>Light</div>
-          <div class="sidebar-bg-options" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark</div>
+          <div class="sidebar-bg-options selected" id="sidebar-light-theme">
+            <div class="img-ss rounded-circle bg-light border mr-3"></div>Light
+          </div>
+          <div class="sidebar-bg-options" id="sidebar-dark-theme">
+            <div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark
+          </div>
           <p class="settings-heading mt-2">HEADER SKINS</p>
           <div class="color-tiles mx-0 px-4">
             <div class="tiles primary"></div>
@@ -251,14 +262,17 @@
         <i class="settings-close fa fa-times"></i>
         <ul class="nav nav-tabs" id="setting-panel" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
+            <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab"
+              aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">CHATS</a>
+            <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab"
+              aria-controls="chats-section">CHATS</a>
           </li>
         </ul>
         <div class="tab-content" id="setting-content">
-          <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
+          <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel"
+            aria-labelledby="todo-section">
             <div class="add-items d-flex px-3 mb-0">
               <form class="form w-100">
                 <div class="form-group d-flex">
@@ -337,7 +351,8 @@
           <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
             <div class="d-flex align-items-center justify-content-between border-bottom">
               <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
-              <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
+              <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See
+                All</small>
             </div>
             <ul class="chat-list">
               <li class="list active">
@@ -401,103 +416,103 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item nav-profile">
-            
+
           </li>
           <li class="nav-item">
             <a class="nav-link" href="index-2.html">
               <i class="fa fa-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
-               <i class="menu-arrow"></i>
+              <i class="menu-arrow"></i>
             </a>
           </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#userManagement" aria-expanded="false" aria-controls="userManagement">
-                  <i class="fa fa-puzzle-piece menu-icon"></i>
-                  <span class="menu-title">User Management</span>
-                  <i class="menu-arrow"></i>
-              </a>
-
-              <div class="collapse" id="userManagement">
-                  <ul class="nav flex-column sub-menu">
-
-                      <li class="nav-item">
-                          <a class="nav-link" href="{{ route('users.index') }}">
-                              User List
-                          </a>
-                      </li>
-
-                      <li class="nav-item">
-                          <a class="nav-link" href="{{ route('users.create') }}">
-                              Create User
-                          </a>                    
-                      </li>
-                      
-                      
-                  </ul>
-              </div>
-          </li>
-                  <li class="nav-item">
-                  <a class="nav-link" data-toggle="collapse" href="#roleManagement" aria-expanded="false" aria-controls="roleManagement">
-                  <i class="fa fa-user-shield menu-icon"></i>
-                  <span class="menu-title">Role Management</span>
-                  <i class="menu-arrow"></i>
-              </a>
-
-              <div class="collapse" id="roleManagement">
-                  <ul class="nav flex-column sub-menu">
-
-                      <li class="nav-item">
-                          <a class="nav-link" href="{{ route('roles.index') }}">
-                              Role List
-                          </a>
-                      </li>
-
-                      <li class="nav-item">
-                          <a class="nav-link" href="{{ route('roles.create') }}">
-                              Create Role
-                          </a>
-                      </li>
-                  </ul>
-              </div>
-          </li>
-          
           <li class="nav-item">
-    <a class="nav-link"
-       data-toggle="collapse"
-       href="#departmentManagement"
-       aria-expanded="false"
-       aria-controls="departmentManagement">
+            <a class="nav-link" data-toggle="collapse" href="#userManagement" aria-expanded="false"
+              aria-controls="userManagement">
+              <i class="fa fa-puzzle-piece menu-icon"></i>
+              <span class="menu-title">User Management</span>
+              <i class="menu-arrow"></i>
+            </a>
 
-        <i class="fab fa-trello menu-icon"></i>
-        <span class="menu-title">Department</span>
-        <i class="menu-arrow"></i>
-    </a>
+            <div class="collapse" id="userManagement">
+              <ul class="nav flex-column sub-menu">
 
-    <div class="collapse" id="departmentManagement">
-        <ul class="nav flex-column sub-menu">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('departments.create') }}">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('users.index') }}">
+                    User List
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('users.create') }}">
+                    Create User
+                  </a>
+                </li>
+
+
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#roleManagement" aria-expanded="false"
+              aria-controls="roleManagement">
+              <i class="fa fa-user-shield menu-icon"></i>
+              <span class="menu-title">Role Management</span>
+              <i class="menu-arrow"></i>
+            </a>
+
+            <div class="collapse" id="roleManagement">
+              <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('roles.index') }}">
+                    Role List
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('roles.create') }}">
+                    Create Role
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#departmentManagement" aria-expanded="false"
+              aria-controls="departmentManagement">
+
+              <i class="fab fa-trello menu-icon"></i>
+              <span class="menu-title">Department</span>
+              <i class="menu-arrow"></i>
+            </a>
+
+            <div class="collapse" id="departmentManagement">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('departments.create') }}">
                     Create Department
-                </a>
-            </li>
+                  </a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('departments.index') }}">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('departments.index') }}">
                     Department List
-                </a>
-            </li>
+                  </a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('departments.edit', 1) }}">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('departments.edit', 1) }}">
                     Edit Department
-                </a>
-            </li>
-        </ul>
-    </div>
-</li>
-          
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
           <li class="nav-item d-none d-lg-block">
-            <a class="nav-link" data-toggle="collapse" href="#sidebar-layouts" aria-expanded="false" aria-controls="sidebar-layouts">
+            <a class="nav-link" data-toggle="collapse" href="#sidebar-layouts" aria-expanded="false"
+              aria-controls="sidebar-layouts">
               <i class="fas fa-columns menu-icon"></i>
               <span class="menu-title">Doctor Management</span>
               <i class="menu-arrow"></i>
@@ -506,8 +521,10 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/layout/compact-menu.html">Compact menu</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/layout/sidebar-collapsed.html">Icon menu</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/layout/sidebar-hidden.html">Sidebar Hidden</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/layout/sidebar-hidden-overlay.html">Sidebar Overlay</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/layout/sidebar-hidden.html">Sidebar Hidden</a>
+                </li>
+                <li class="nav-item"> <a class="nav-link" href="pages/layout/sidebar-hidden-overlay.html">Sidebar
+                    Overlay</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/layout/sidebar-fixed.html">Sidebar Fixed</a></li>
               </ul>
             </div>
@@ -532,10 +549,11 @@
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/tooltips.html">Tooltips</a></li>
               </ul>
-              </div>
+            </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-advanced" aria-expanded="false" aria-controls="ui-advanced">
+            <a class="nav-link" data-toggle="collapse" href="#ui-advanced" aria-expanded="false"
+              aria-controls="ui-advanced">
               <i class="fas fa-clipboard-list menu-icon"></i>
               <span class="menu-title">Appointment Management</span>
               <i class="menu-arrow"></i>
@@ -544,7 +562,8 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dragula.html">Dragula</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/clipboard.html">Clipboard</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/context-menu.html">Context menu</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/context-menu.html">Context menu</a>
+                </li>
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/slider.html">Sliders</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/carousel.html">Carousel</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/colcade.html">Colcade</a></li>
@@ -553,15 +572,17 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false"
+              aria-controls="form-elements">
               <i class="fab fa-wpforms menu-icon"></i>
               <span class="menu-title">Doctor Schedule</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>                
-                <li class="nav-item"><a class="nav-link" href="pages/forms/advanced_elements.html">Advanced Elements</a></li>
+                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
+                <li class="nav-item"><a class="nav-link" href="pages/forms/advanced_elements.html">Advanced Elements</a>
+                </li>
                 <li class="nav-item"><a class="nav-link" href="pages/forms/validation.html">Validation</a></li>
                 <li class="nav-item"><a class="nav-link" href="pages/forms/wizard.html">Wizard</a></li>
               </ul>
@@ -597,7 +618,7 @@
                 <li class="nav-item"> <a class="nav-link" href="pages/charts/chartist.html">Chartists</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/charts/justGage.html">JustGage</a></li>
               </ul>
-              </div>
+            </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
@@ -610,7 +631,8 @@
                 <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/tables/data-table.html">Data table</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/tables/js-grid.html">Js-grid</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/tables/sortable-table.html">Sortable table</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/tables/sortable-table.html">Sortable table</a>
+                </li>
               </ul>
             </div>
           </li>
@@ -621,14 +643,14 @@
             </a>
           </li>
 
-           <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" href="pages/ui-features/popups.html">
               <i class="fas fa-minus-square menu-icon"></i>
               <span class="menu-title">Pharmacy</span>
             </a>
           </li>
 
-           <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" href="pages/ui-features/popups.html">
               <i class="fas fa-minus-square menu-icon"></i>
               <span class="menu-title">Billing</span>
@@ -651,7 +673,8 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/icons/flag-icons.html">Flag icons</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/icons/font-awesome.html">Font Awesome</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/icons/simple-line-icon.html">Simple line icons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/icons/simple-line-icon.html">Simple line icons</a>
+                </li>
                 <li class="nav-item"> <a class="nav-link" href="pages/icons/themify.html">Themify icons</a></li>
               </ul>
             </div>
@@ -700,7 +723,8 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+            <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false"
+              aria-controls="general-pages">
               <i class="fas fa-file menu-icon"></i>
               <span class="menu-title">CMS moduels</span>
               <i class="menu-arrow"></i>
@@ -713,7 +737,8 @@
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/faq-2.html"> FAQ 2 </a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/news-grid.html"> News grid </a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/timeline.html"> Timeline </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/search-results.html"> Search Results </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/search-results.html"> Search Results </a>
+                </li>
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/portfolio.html"> Portfolio </a></li>
               </ul>
             </div>
@@ -734,7 +759,8 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#e-commerce" aria-expanded="false" aria-controls="e-commerce">
+            <a class="nav-link" data-toggle="collapse" href="#e-commerce" aria-expanded="false"
+              aria-controls="e-commerce">
               <i class="fas fa-shopping-cart menu-icon"></i>
               <span class="menu-title">E-commerce</span>
               <i class="menu-arrow"></i>
@@ -742,7 +768,8 @@
             <div class="collapse" id="e-commerce">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/invoice.html"> Invoice </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/pricing-table.html"> Pricing Table </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/pricing-table.html"> Pricing Table </a>
+                </li>
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/orders.html"> Orders </a></li>
               </ul>
             </div>
@@ -756,64 +783,86 @@
         </ul>
       </nav>
 
-        <main id="main" class="main-panel">
-            @yield('content')
-        </main>
-        </div>
+      <main id="main" class="main-panel">
+        @yield('content')
+      </main>
     </div>
-</div>
+  </div>
+  </div>
 
-    <!-- Vendor JS Files -->
-      <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
-      <script src="{{ asset('assets/vendors/js/vendor.bundle.addons.js') }}"></script>
-      <!-- endinject -->
-      <!-- Plugin js for this page-->
-      <!-- End plugin js for this page-->
-      <!-- inject:js -->
-      <script src="{{ asset('assets/js/off-canvas.js') }}"></script>
-      <script src="{{ asset('assets/js/hoverable-collapse.js') }}"></script>
-      <script src="{{ asset('assets/js/misc.js') }}"></script>
-      <script src="{{ asset('assets/js/settings.js') }}"></script>
-      <script src="{{ asset('assets/js/todolist.js') }}"></script>
-      <!-- endinject -->
-      <!-- Custom js for this page-->
-      <script src="{{ asset('assets/js/dashboard.js') }}"></script>
-      <script src="{{ asset('assets/js/data-table.js') }}"></script>
-      <!-- End custom js for this page--> 
-      
-    <script>
-        function confirmDelete(userId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this user deletion!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Submit the specific form using its unique ID
-                    document.getElementById('delete-form-' + userId).submit();
-                }
-            });
+  <!-- Vendor JS Files -->
+  <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
+  <script src="{{ asset('assets/vendors/js/vendor.bundle.addons.js') }}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="{{ asset('assets/js/off-canvas.js') }}"></script>
+  <script src="{{ asset('assets/js/hoverable-collapse.js') }}"></script>
+  <script src="{{ asset('assets/js/misc.js') }}"></script>
+  <script src="{{ asset('assets/js/settings.js') }}"></script>
+  <script src="{{ asset('assets/js/todolist.js') }}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+  <script src="{{ asset('assets/js/data-table.js') }}"></script>
+  <!-- End custom js for this page-->
+
+  <script>
+    function confirmDelete(id) {
+      // Ensure SweetAlert is loaded before executing
+      if (typeof Swal === 'undefined') {
+        if (confirm('Are you sure you want to delete this record?')) {
+          submitDeleteForm(id);
         }
+        return;
+      }
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this deletion!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          submitDeleteForm(id);
+        }
+      });
+    }
+
+    // Helper function to safely find and submit the delete form
+    function submitDeleteForm(id) {
+      let form = document.getElementById('delete-form-' + id) || document.getElementById('delete-role-' + id);
+
+      if (form) {
+        form.submit();
+      } else {
+        console.error('Delete form not found for ID:', id);
+        alert('Delete form element not found in DOM!');
+      }
+    }
+  </script>
+
+  {{-- Auto-trigger SweetAlert for Success Flash Messages --}}
+  @if(session('success'))
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        if (typeof Swal !== 'undefined') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: "{{ session('success') }}",
+            timer: 3000,
+            showConfirmButton: false
+          });
+        }
+      });
     </script>
-
-    {{-- Auto-trigger SweetAlert for Success Flash Messages --}}
-      @if(session('success'))
-          <script>
-              Swal.fire({
-                  icon: 'success',
-                  title: 'Success!',
-                  text: "{{ session('success') }}",
-                  timer: 3000,
-                  showConfirmButton: false
-              });
-          </script>
-      @endif
-
-    </body>
+  @endif
+</body>
 
 </html>

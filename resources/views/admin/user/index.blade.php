@@ -19,6 +19,7 @@
                 <h4 class="card-title">Hospital Users</h4>
                 <a href="{{ route('users.create') }}" class="btn btn-primary">+ Create User</a>
             </div>           
+            
             <div class="table-responsive">
                 <table id="order-listing" class="table table-bordered table-hover">
                     <thead>
@@ -64,23 +65,25 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-info">View</a>
-                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                    
-                                    {{-- Delete Form --}}
-                                    <form action="{{ route('users.destroy', $user->id) }}" 
-                                        method="POST" 
-                                        id="delete-form-{{ $user->id }}" 
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
+                                    <div class="d-flex gap-1">
+                                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-info">View</a>
+                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                         
-                                        <button type="button" 
-                                                class="btn btn-sm btn-danger" 
-                                                onclick="confirmDelete({{ $user->id }})">
-                                            Delete
-                                        </button>
-                                    </form>
+                                        {{-- Fixed Delete Form --}}
+                                        <form action="{{ route('users.destroy', $user->id) }}" 
+                                              method="POST" 
+                                              id="delete-form-{{ $user->id }}" 
+                                              class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            
+                                            <button type="button" 
+                                                    class="btn btn-sm btn-danger" 
+                                                    onclick="confirmDelete({{ $user->id }})">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @empty
@@ -92,11 +95,6 @@
                         @endforelse
                     </tbody>
                 </table>
-            </div>
-
-            {{-- Pagination Links --}}
-            <div class="mt-3 d-flex justify-content-end">
-                {{ $users->links() }}
             </div>
 
         </div>
