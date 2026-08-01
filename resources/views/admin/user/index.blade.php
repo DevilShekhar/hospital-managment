@@ -18,17 +18,7 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="card-title">Hospital Users</h4>
                 <a href="{{ route('users.create') }}" class="btn btn-primary">+ Create User</a>
-            </div>
-
-            {{-- Flash Success Message --}}
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            {{-- Filter & Search Row --}}
-           
+            </div>           
             <div class="table-responsive">
                 <table id="order-listing" class="table table-bordered table-hover">
                     <thead>
@@ -79,12 +69,17 @@
                                     
                                     {{-- Delete Form --}}
                                     <form action="{{ route('users.destroy', $user->id) }}" 
-                                          method="POST" 
-                                          class="d-inline" 
-                                          onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                        method="POST" 
+                                        id="delete-form-{{ $user->id }}" 
+                                        class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                        
+                                        <button type="button" 
+                                                class="btn btn-sm btn-danger" 
+                                                onclick="confirmDelete({{ $user->id }})">
+                                            Delete
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
