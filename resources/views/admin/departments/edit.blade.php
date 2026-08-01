@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
+
+
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Edit Department</h4>

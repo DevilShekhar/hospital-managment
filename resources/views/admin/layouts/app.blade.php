@@ -433,24 +433,26 @@
               <i class="menu-arrow"></i>
             </a>
 
-            <div class="collapse" id="userManagement">
-              <ul class="nav flex-column sub-menu">
 
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('users.index') }}">
-                    User List
-                  </a>
-                </li>
+              <div class="collapse" id="userManagement"data-parent="#sidebar">
+                  <ul class="nav flex-column sub-menu">
 
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('users.create') }}">
-                    Create User
-                  </a>
-                </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('users.index') }}">
+                              User List
+                          </a>
+                      </li>
 
-
-              </ul>
-            </div>
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('users.create') }}">
+                              Create User
+                          </a>                    
+                      </li>
+                      
+                      
+                  </ul>
+              </div>
+ 
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#roleManagement" aria-expanded="false"
@@ -460,37 +462,51 @@
               <i class="menu-arrow"></i>
             </a>
 
-            <div class="collapse" id="roleManagement">
-              <ul class="nav flex-column sub-menu">
+ 
+              <div class="collapse" id="roleManagement"data-parent="#sidebar">
+                  <ul class="nav flex-column sub-menu">
 
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('roles.index') }}">
-                    Role List
-                  </a>
-                </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('roles.index') }}">
+                              Role List
+                          </a>
+                      </li>
 
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('roles.create') }}">
-                    Create Role
-                  </a>
-                </li>
-              </ul>
-            </div>
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('roles.create') }}">
+                              Create Role
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+ 
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#departmentManagement" aria-expanded="false"
-              aria-controls="departmentManagement">
+ 
+ DoctorManagement
+    <a class="nav-link"data-toggle="collapse"href="#departmentManagement"aria-expanded="false"aria-controls="departmentManagement">
 
-              <i class="fab fa-trello menu-icon"></i>
-              <span class="menu-title">Department</span>
-              <i class="menu-arrow"></i>
-            </a>
+    <a class="nav-link"
+       data-toggle="collapse"
+       href="#departmentManagement"
+       aria-expanded="false"
+       aria-controls="departmentManagement">
+ 
 
-            <div class="collapse" id="departmentManagement">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('departments.create') }}">
+        <i class="fab fa-trello menu-icon"></i>
+        <span class="menu-title">Department</span>
+        <i class="menu-arrow"></i>
+    </a>
+
+ DoctorManagement
+    <div class="collapse" id="departmentManagement"data-parent="#sidebar">
+
+    <div class="collapse" id="departmentManagement">
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('departments.create') }}">
+ 
                     Create Department
                   </a>
                 </li>
@@ -504,30 +520,37 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{{ route('departments.edit', 1) }}">
                     Edit Department
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item d-none d-lg-block">
-            <a class="nav-link" data-toggle="collapse" href="#sidebar-layouts" aria-expanded="false"
-              aria-controls="sidebar-layouts">
-              <i class="fas fa-columns menu-icon"></i>
+ 
+                </a>
+            </li>
+        </ul>
+    </div>
+</li>
+          
+           <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#doctorManagement" aria-expanded="false" aria-controls="doctorManagement" >
+              <i class="fas fa-user-md menu-icon"></i>
               <span class="menu-title">Doctor Management</span>
               <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="sidebar-layouts">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/layout/compact-menu.html">Compact menu</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/layout/sidebar-collapsed.html">Icon menu</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/layout/sidebar-hidden.html">Sidebar Hidden</a>
-                </li>
-                <li class="nav-item"> <a class="nav-link" href="pages/layout/sidebar-hidden-overlay.html">Sidebar
-                    Overlay</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/layout/sidebar-fixed.html">Sidebar Fixed</a></li>
-              </ul>
-            </div>
+          </a>
+
+        <div class="collapse" id="doctorManagement"data-parent="#sidebar">
+            <ul class="nav flex-column sub-menu">
+
+              
+
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('doctors.index') }}">
+                      Doctor List
+                  </a>
+              </li>
+
+              
+              
+
+          </ul>
+      </div>
+ 
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
