@@ -2,12 +2,13 @@
 
 @section('content')
 <div class="container-fluid">
-    <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
 
         <div class="card mb-3">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4>Create User</h4>
+                <h4>Edit User: {{ $user->first_name }} {{ $user->last_name }}</h4>
                 <a href="{{ route('users.index') }}" class="btn btn-secondary btn-sm">Back to List</a>
             </div>
 
@@ -21,8 +22,7 @@
                                id="first_name" 
                                name="first_name" 
                                class="form-control @error('first_name') is-invalid @enderror" 
-                               value="{{ old('first_name') }}" 
-                               placeholder="Enter First Name"
+                               value="{{ old('first_name', $user->first_name) }}" 
                                required>
                         @error('first_name')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -36,8 +36,7 @@
                                id="last_name" 
                                name="last_name" 
                                class="form-control @error('last_name') is-invalid @enderror" 
-                               value="{{ old('last_name') }}" 
-                               placeholder="Enter Last Name"
+                               value="{{ old('last_name', $user->last_name) }}" 
                                required>
                         @error('last_name')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -51,8 +50,7 @@
                                id="employee_id" 
                                name="employee_id" 
                                class="form-control @error('employee_id') is-invalid @enderror" 
-                               value="{{ old('employee_id') }}" 
-                               placeholder="e.g. EMP001"
+                               value="{{ old('employee_id', $user->employee_id) }}" 
                                required>
                         @error('employee_id')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -66,8 +64,7 @@
                                id="email" 
                                name="email" 
                                class="form-control @error('email') is-invalid @enderror" 
-                               value="{{ old('email') }}" 
-                               placeholder="user@hospital.com"
+                               value="{{ old('email', $user->email) }}" 
                                required>
                         @error('email')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -81,8 +78,7 @@
                                id="mobile" 
                                name="mobile" 
                                class="form-control @error('mobile') is-invalid @enderror" 
-                               value="{{ old('mobile') }}" 
-                               placeholder="Mobile Number"
+                               value="{{ old('mobile', $user->mobile) }}" 
                                required>
                         @error('mobile')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -94,9 +90,9 @@
                         <label for="gender">Gender</label>
                         <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror">
                             <option value="">Select Gender</option>
-                            <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
-                            <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
-                            <option value="Other" {{ old('gender') == 'Other' ? 'selected' : '' }}>Other</option>
+                            <option value="Male" {{ old('gender', $user->gender) == 'Male' ? 'selected' : '' }}>Male</option>
+                            <option value="Female" {{ old('gender', $user->gender) == 'Female' ? 'selected' : '' }}>Female</option>
+                            <option value="Other" {{ old('gender', $user->gender) == 'Other' ? 'selected' : '' }}>Other</option>
                         </select>
                         @error('gender')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -110,19 +106,19 @@
                                id="dob" 
                                name="dob" 
                                class="form-control @error('dob') is-invalid @enderror" 
-                               value="{{ old('dob') }}">
+                               value="{{ old('dob', $user->dob) }}">
                         @error('dob')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
 
-                    {{-- Dynamic Department --}}
+                    {{-- Department --}}
                     <div class="col-md-4 mb-3">
                         <label for="department_id">Department <span class="text-danger">*</span></label>
                         <select class="form-control @error('department_id') is-invalid @enderror" name="department_id" id="department_id" required>
                             <option value="">Select Department</option>
                             @foreach($departments as $dept)
-                                <option value="{{ $dept->id }}" {{ old('department_id') == $dept->id ? 'selected' : '' }}>
+                                <option value="{{ $dept->id }}" {{ old('department_id', $user->department_id) == $dept->id ? 'selected' : '' }}>
                                     {{ $dept->name }}
                                 </option>
                             @endforeach
@@ -132,13 +128,13 @@
                         @enderror
                     </div>
 
-                    {{-- Dynamic Role --}}
+                    {{-- Role --}}
                     <div class="col-md-4 mb-3">
                         <label for="role">Role <span class="text-danger">*</span></label>
                         <select class="form-control @error('role') is-invalid @enderror" name="role" id="role" required>
                             <option value="">Select Role</option>
                             @foreach($roles as $role)
-                                <option value="{{ $role }}" {{ old('role') == $role ? 'selected' : '' }}>
+                                <option value="{{ $role }}" {{ old('role', $userRole) == $role ? 'selected' : '' }}>
                                     {{ $role }}
                                 </option>
                             @endforeach
@@ -148,14 +144,13 @@
                         @enderror
                     </div>
 
-                    {{-- Password --}}
+                    {{-- Password (Optional on edit) --}}
                     <div class="col-md-6 mb-3">
-                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <label for="password">Password <small class="text-muted">(Leave blank to keep current password)</small></label>
                         <input type="password" 
                                id="password" 
                                name="password" 
-                               class="form-control @error('password') is-invalid @enderror" 
-                               required>
+                               class="form-control @error('password') is-invalid @enderror">
                         @error('password')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -163,12 +158,11 @@
 
                     {{-- Confirm Password --}}
                     <div class="col-md-6 mb-3">
-                        <label for="password_confirmation">Confirm Password <span class="text-danger">*</span></label>
+                        <label for="password_confirmation">Confirm Password</label>
                         <input type="password" 
                                id="password_confirmation" 
                                name="password_confirmation" 
-                               class="form-control" 
-                               required>
+                               class="form-control">
                     </div>
 
                     {{-- Profile Photo --}}
@@ -179,6 +173,9 @@
                                name="photo" 
                                class="form-control @error('photo') is-invalid @enderror" 
                                accept="image/*">
+                        @if($user->photo)
+                            <small class="text-success d-block mt-1">Current photo exists</small>
+                        @endif
                         @error('photo')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -188,8 +185,8 @@
                     <div class="col-md-6 mb-3">
                         <label for="status">Status</label>
                         <select class="form-control @error('status') is-invalid @enderror" name="status" id="status">
-                            <option value="1" {{ old('status', '1') == '1' ? 'selected' : '' }}>Active</option>
-                            <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
+                            <option value="1" {{ old('status', $user->status) == 1 ? 'selected' : '' }}>Active</option>
+                            <option value="0" {{ old('status', $user->status) == 0 ? 'selected' : '' }}>Inactive</option>
                         </select>
                         @error('status')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -199,7 +196,7 @@
                     {{-- Address --}}
                     <div class="col-md-12 mb-3">
                         <label for="address">Address</label>
-                        <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="3">{{ old('address') }}</textarea>
+                        <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="3">{{ old('address', $user->address) }}</textarea>
                         @error('address')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -208,7 +205,7 @@
                     {{-- City --}}
                     <div class="col-md-4 mb-3">
                         <label for="city">City</label>
-                        <input type="text" id="city" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}">
+                        <input type="text" id="city" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ old('city', $user->city) }}">
                         @error('city')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -217,7 +214,7 @@
                     {{-- State --}}
                     <div class="col-md-4 mb-3">
                         <label for="state">State</label>
-                        <input type="text" id="state" class="form-control @error('state') is-invalid @enderror" name="state" value="{{ old('state') }}">
+                        <input type="text" id="state" class="form-control @error('state') is-invalid @enderror" name="state" value="{{ old('state', $user->state) }}">
                         @error('state')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -226,7 +223,7 @@
                     {{-- Pincode --}}
                     <div class="col-md-4 mb-3">
                         <label for="pincode">Pincode</label>
-                        <input type="text" id="pincode" class="form-control @error('pincode') is-invalid @enderror" name="pincode" value="{{ old('pincode') }}">
+                        <input type="text" id="pincode" class="form-control @error('pincode') is-invalid @enderror" name="pincode" value="{{ old('pincode', $user->pincode) }}">
                         @error('pincode')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -236,8 +233,7 @@
             </div>
 
             <div class="card-footer text-end">
-                <button type="submit" class="btn btn-success">Save User</button>
-                <button type="reset" class="btn btn-warning">Reset</button>
+                <button type="submit" class="btn btn-primary">Update User</button>
                 <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancel</a>
             </div>
 
