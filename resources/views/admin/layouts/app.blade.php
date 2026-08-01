@@ -398,12 +398,58 @@
                <i class="menu-arrow"></i>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/widgets.html">
-              <i class="fa fa-puzzle-piece menu-icon"></i>
-              <span class="menu-title">User Management</span>
-            </a>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#userManagement" aria-expanded="false" aria-controls="userManagement">
+                  <i class="fa fa-puzzle-piece menu-icon"></i>
+                  <span class="menu-title">User Management</span>
+                  <i class="menu-arrow"></i>
+              </a>
+
+              <div class="collapse" id="userManagement">
+                  <ul class="nav flex-column sub-menu">
+
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('users.index') }}">
+                              User List
+                          </a>
+                      </li>
+
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('users.create') }}">
+                              Create User
+                          </a>                    
+                      </li>
+                      
+                      
+                  </ul>
+              </div>
           </li>
+                  <li class="nav-item">
+                  <a class="nav-link" data-toggle="collapse" href="#roleManagement" aria-expanded="false" aria-controls="roleManagement">
+                  <i class="fa fa-user-shield menu-icon"></i>
+                  <span class="menu-title">Role Management</span>
+                  <i class="menu-arrow"></i>
+              </a>
+
+              <div class="collapse" id="roleManagement">
+                  <ul class="nav flex-column sub-menu">
+
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('roles.index') }}">
+                              Role List
+                          </a>
+                      </li>
+
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('roles.create') }}">
+                              Create Role
+                          </a>
+                      </li>
+
+                  </ul>
+              </div>
+          </li>
+          
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
               <i class="fab fa-trello menu-icon"></i>
@@ -700,8 +746,9 @@
       <!-- endinject -->
       <!-- Custom js for this page-->
       <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+      <script src="{{ asset('assets/js/data-table.js') }}"></script>
       <!-- End custom js for this page--> 
-
+      
 
 
     </body>
