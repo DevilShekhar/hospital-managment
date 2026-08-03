@@ -10,7 +10,9 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        $departments = Department::latest()->paginate(10);
+        // Status 1 aslele active departments fetch hotiil (0 wale hide hotiil)
+        $departments = Department::where('status', 1)->latest()->get();
+
         return view('admin.departments.index', compact('departments'));
     }
 
@@ -24,12 +26,19 @@ class DepartmentController extends Controller
         $request->validate([
             'name'        => 'required|string|max:255|unique:departments,name',
             'description' => 'nullable|string',
-            'status'      => 'required|in:active,inactive',
+            'status'      => 'nullable',
         ]);
 
-        Department::create($request->all());
+        // Form madhun 'active', '1', kiwa true aala tar 1 hoil, nahi tar 0
+        $statusValue = in_array($request->status, ['active', '1', 1, true], true) ? 1 : 0;
 
-        return redirect()->route('admin.departments.index')->with('success', 'Department created successfully.');
+        Department::create([
+            'name'        => $request->name,
+            'description' => $request->description,
+            'status'      => $statusValue,
+        ]);
+
+        return redirect()->route('departments.index')->with('success', 'Department created successfully.');
     }
 
     public function edit(Department $department)
@@ -42,17 +51,27 @@ class DepartmentController extends Controller
         $request->validate([
             'name'        => 'required|string|max:255|unique:departments,name,' . $department->id,
             'description' => 'nullable|string',
-            'status'      => 'required|in:active,inactive',
+            'status'      => 'nullable',
         ]);
 
-        $department->update($request->all());
+        // Form madhun 'active', '1', kiwa true aala tar 1 hoil, nahi tar 0
+        $statusValue = in_array($request->status, ['active', '1', 1, true], true) ? 1 : 0;
 
-        return redirect()->route('admin.departments.index')->with('success', 'Department updated successfully.');
+        $department->update([
+            'name'        => $request->name,
+            'description' => $request->description,
+            'status'      => $statusValue,
+        ]);
+
+        return redirect()->route('departments.index')->with('success', 'Department updated successfully.');
     }
 
     public function destroy(Department $department)
     {
-        $department->delete();
-        return redirect()->route('admin.departments.index')->with('success', 'Department deleted successfully.');
+        $department->update([
+            'status' => 0, // Soft delete by setting status to 0 (inactive)
+        ]);
+
+        return redirect()->route('departments.index')->with('success', 'Department deleted successfully.');
     }
 }
