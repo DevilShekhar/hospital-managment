@@ -501,11 +501,7 @@
                         Department List
                       </a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{{ route('departments.edit', 1) }}">
-                        Edit Department
-                      </a>
-                    </li>
+                   
                   </ul>
               </div>
           </li>
