@@ -60,6 +60,7 @@
                                 <th>Patient</th>
                                 <th>Mobile</th>
                                 <th>Department</th>
+                                <th>Specialist</th>
                                 <th>Doctor</th>
                                 <th>Status</th>
                                 <th width="170">Action</th>
@@ -93,7 +94,10 @@
                                 <td>
                                     {{ $appointment->department->department_name ?? '-' }}
                                 </td>
-
+                                
+                                <td>
+                                    {{ $appointment->doctor->specialization ?? '-' }}
+                                </td>
                                 <td>
                                     Dr.
                                     {{ $appointment->doctor->first_name ?? '' }}
@@ -163,7 +167,7 @@
                         @empty
 
                             <tr>
-                                <td colspan="10" class="text-center py-4 text-muted">
+                                <td colspan="11" class="text-center py-4 text-muted">
                                     No appointments found.
                                 </td>
                             </tr>
