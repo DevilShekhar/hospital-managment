@@ -134,16 +134,16 @@
 
                     {{-- Dynamic Role --}}
                     <div class="col-md-4 mb-3">
-                        <label for="role">Role <span class="text-danger">*</span></label>
-                        <select class="form-control @error('role') is-invalid @enderror" name="role" id="role" required>
+                        <label for="role_id">Role <span class="text-danger">*</span></label>
+                        <select class="form-control @error('role_id') is-invalid @enderror" name="role_id" id="role_id" required>
                             <option value="">Select Role</option>
                             @foreach($roles as $role)
-                                <option value="{{ $role }}" {{ old('role') == $role ? 'selected' : '' }}>
-                                    {{ $role }}
+                                <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>
+                                    {{ $role->name }}
                                 </option>
                             @endforeach
                         </select>
-                        @error('role')
+                        @error('role_id')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>

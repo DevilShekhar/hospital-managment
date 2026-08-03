@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Department;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -32,8 +33,7 @@ class UserController extends Controller
     public function create()
     {
         $departments = Department::all();
-        $roles = Role::pluck('name', 'name')->all();
-
+        $roles = Role::select('id', 'name')->get();
         return view('admin.user.create', compact('departments', 'roles'));
     }
 
@@ -51,7 +51,7 @@ class UserController extends Controller
             'gender'        => 'nullable|string|in:Male,Female,Other',
             'dob'           => 'nullable|date',
             'department_id' => 'required|exists:departments,id',
-            'role'          => 'required|exists:roles,name',
+            'role_id'       => 'required|exists:roles,id',
             'password'      => 'required|string|min:8|confirmed',
             'photo'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status'        => 'required|in:1,0',
@@ -61,36 +61,44 @@ class UserController extends Controller
             'pincode'       => 'nullable|string|max:20',
         ]);
 
-        // Handle Photo Upload
-        $photoPath = null;
-        if ($request->hasFile('photo')) {
-            $photoPath = $request->file('photo')->store('users/photos', 'public');
+        DB::beginTransaction();
+        try {
+            // Upload Photo
+            $photoPath = null;
+            if ($request->hasFile('photo')) {
+                $photoPath = $request->file('photo')->store('users/photos', 'public');
+            }
+
+            // Create User
+            $user = User::create([
+                'first_name'    => $request->first_name,
+                'last_name'     => $request->last_name,
+                'name'          => $request->first_name . ' ' . $request->last_name,
+                'employee_id'   => $request->employee_id,
+                'email'         => $request->email,
+                'mobile'        => $request->mobile,
+                'gender'        => $request->gender,
+                'dob'           => $request->dob,
+                'department_id' => $request->department_id,
+                'password'      => Hash::make($request->password),
+                'photo'         => $photoPath,
+                'status'        => $request->status,
+                'address'       => $request->address,
+                'city'          => $request->city,
+                'state'         => $request->state,
+                'pincode'       => $request->pincode,
+                'role_id'       => $request->role_id, // Optional
+            ]);
+            // Get Role by ID
+            $role = Role::findOrFail($request->role_id);
+            // Assign Role (Spatie)
+            $user->assignRole($role->name);
+            DB::commit();
+            return redirect()->route('users.index')->with('success', 'User created successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withInput()->with('error', $e->getMessage());
         }
-
-        // Create User
-        $user = User::create([
-            'first_name'    => $request->first_name,
-            'last_name'     => $request->last_name,
-            'name'          => $request->first_name . ' ' . $request->last_name,
-            'employee_id'   => $request->employee_id,
-            'email'         => $request->email,
-            'mobile'        => $request->mobile,
-            'gender'        => $request->gender,
-            'dob'           => $request->dob,
-            'department_id' => $request->department_id,
-            'password'      => Hash::make($request->password),
-            'photo'         => $photoPath,
-            'status'        => $request->status, 
-            'address'       => $request->address,
-            'city'          => $request->city,
-            'state'         => $request->state,
-            'pincode'       => $request->pincode,
-        ]);
-
-        // Assign Role
-        $user->assignRole($request->role);
-
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
     public function show(User $user)

@@ -29,6 +29,7 @@ class User extends Authenticatable
         'state',
         'pincode',
         'status',
+        'role_id'
     ];
 
     protected $hidden = [
@@ -49,4 +50,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Department::class);
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
 }  
