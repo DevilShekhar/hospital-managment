@@ -105,7 +105,7 @@
 
                             <td>{{ $loop->iteration + ($doctors->currentPage()-1) * $doctors->perPage() }}</td>
 
-                            <td>{{ $doctor->doctor_id }}</td>
+                            <td>{{ $doctor->employee_id }}</td>
 
                             <td>{{ $doctor->first_name }} {{ $doctor->last_name }}</td>
 
