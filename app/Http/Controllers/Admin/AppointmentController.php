@@ -23,13 +23,23 @@ class AppointmentController extends Controller
     return view('admin.appointments.index', compact('appointments'));
 }
 
-    public function create()
-    {
-        $departments = Department::all();
-        $doctors = Doctor::all();
+   public function create()
+{
+    $departments = Department::all();
+    $doctors = Doctor::all();
 
-        return view('admin.appointments.create', compact('departments', 'doctors'));
-    }
+    $specializations = Doctor::select('specialization')
+        ->distinct()
+        ->whereNotNull('specialization')
+        ->orderBy('specialization')
+        ->get();
+
+    return view('admin.appointments.create', compact(
+        'departments',
+        'doctors',
+        'specializations'
+    ));
+}
 
     /**
      * Store a newly created resource in storage.
@@ -57,6 +67,10 @@ class AppointmentController extends Controller
     public function show(Appointment $appointment)
     {
         //
+    }
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
     }
 
     /**

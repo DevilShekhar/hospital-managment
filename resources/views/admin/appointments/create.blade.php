@@ -69,18 +69,34 @@
                             </div>
 
                             <!-- Doctor -->
+                            <!-- Doctor -->
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Doctor</label>
 
-                                <select class="form-control" name="doctor_id">
+                                <select class="form-control" id="doctor_id" name="doctor_id">
                                     <option value="">Select Doctor</option>
 
                                     @foreach($doctors as $doctor)
-                                        <option value="{{ $doctor->id }}">
+                                        <option value="{{ $doctor->id }}"
+                                                data-specialization="{{ $doctor->specialization }}">
                                             Dr. {{ $doctor->first_name }} {{ $doctor->last_name }}
                                         </option>
                                     @endforeach
+                                </select>
+                            </div>
 
+                            <!-- Specialist -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Specialist</label>
+
+                                <select class="form-control" id="specialization" name="specialization">
+                                    <option value="">Select Specialist</option>
+
+                                    @foreach($specializations as $specialization)
+                                        <option value="{{ $specialization->specialization }}">
+                                            {{ $specialization->specialization }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -112,7 +128,7 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                             </div>
-
+                            
                             <!-- Visit Type -->
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Visit Type</label>
@@ -137,19 +153,7 @@
                                 </select>
                             </div>
 
-                            <!-- Status -->
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label">Status</label>
-
-                                <select class="form-control" name="status">
-                                    <option selected>Scheduled</option>
-                                    <option>Confirmed</option>
-                                    <option>Checked In</option>
-                                    <option>Completed</option>
-                                    <option>Cancelled</option>
-                                    <option>No Show</option>
-                                </select>
-                            </div>
+                            
 
                             <!-- Reason -->
                             <div class="col-md-12 mb-3">
@@ -194,4 +198,30 @@
     </div>
 
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const specialization = document.getElementById('specialization');
+    const doctor = document.getElementById('doctor_id');
+
+    specialization.addEventListener('change', function () {
+
+        const selected = this.value;
+
+        Array.from(doctor.options).forEach(function(option) {
+
+            if (option.value === "") {
+                option.hidden = false;
+                return;
+            }
+
+            option.hidden = selected !== "" &&
+                            option.dataset.specialization !== selected;
+        });
+
+        doctor.value = "";
+    });
+
+});
+</script>
 @endsection
