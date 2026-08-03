@@ -567,11 +567,8 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
-                <li class="nav-item"><a class="nav-link" href="pages/forms/advanced_elements.html">Advanced Elements</a>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="pages/forms/validation.html">Validation</a></li>
-                <li class="nav-item"><a class="nav-link" href="pages/forms/wizard.html">Wizard</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('doctor-schedules.index') }}">Schedule List</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('doctor-schedules.create') }}">Create Schedule</a></li>
               </ul>
             </div>
           </li>

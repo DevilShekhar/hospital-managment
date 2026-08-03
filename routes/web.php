@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\admin\DepartmentController;
 use App\Http\Controllers\admin\DoctorController;
 use App\Http\Controllers\admin\AppointmentController;
+use App\Http\Controllers\admin\DoctorScheduleController;
 
 
 
@@ -26,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('departments', DepartmentController::class);
     Route::resource('doctors', DoctorController::class);
     Route::resource('appointments', AppointmentController::class);
+    Route::resource('doctor-schedules', DoctorScheduleController::class);
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
