@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\DepartmentController;
 use App\Http\Controllers\admin\DoctorController;
 use App\Http\Controllers\admin\AppointmentController;
 use App\Http\Controllers\admin\DoctorScheduleController;
+use App\Http\Controllers\admin\QueueManagementController;
 
 
 
@@ -28,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('doctors', DoctorController::class);
     Route::resource('appointments', AppointmentController::class);
     Route::resource('doctor-schedules', DoctorScheduleController::class);
+    Route::resource('queues', QueueManagementController::class);
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
