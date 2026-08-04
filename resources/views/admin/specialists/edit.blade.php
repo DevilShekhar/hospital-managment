@@ -9,11 +9,12 @@
 
             <div class="card-body">
 
+                {{-- Card Header --}}
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
                         <h4 class="card-title">Edit Specialist</h4>
                         <p class="card-description">
-                            Update specialist details.
+                            Update details for: <strong>{{ $specialist->name }}</strong>
                         </p>
                     </div>
 
@@ -22,6 +23,7 @@
                     </a>
                 </div>
 
+                {{-- Global Errors Alert --}}
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <strong>Please fix the following errors:</strong>
@@ -33,6 +35,7 @@
                     </div>
                 @endif
 
+                {{-- Form Start --}}
                 <form action="{{ route('specialists.update', $specialist->id) }}" method="POST">
 
                     @csrf
@@ -51,7 +54,8 @@
                                 name="name"
                                 class="form-control @error('name') is-invalid @enderror"
                                 value="{{ old('name', $specialist->name) }}"
-                                placeholder="Enter Specialist Name">
+                                placeholder="Enter Specialist Name"
+                                required>
 
                             @error('name')
                                 <div class="invalid-feedback">
@@ -60,26 +64,24 @@
                             @enderror
                         </div>
 
-                        <!-- Status -->
+                        <!-- Status (Dynamic Checking for 1, '1', 'Active') -->
                         <div class="col-md-6 mb-3">
                             <label class="form-label">
                                 Status <span class="text-danger">*</span>
                             </label>
 
-                            <select
-                                name="status"
-                                class="form-control @error('status') is-invalid @enderror">
+                            @php
+                                $currentStatus = old('status', $specialist->status);
+                                $isActive = in_array(strtolower((string)$currentStatus), ['1', 'active', 'true'], true);
+                            @endphp
 
-                                <option value="Active"
-                                    {{ old('status', $specialist->status) == 'Active' ? 'selected' : '' }}>
+                           <select name="status" class="form-control @error('status') is-invalid @enderror" required>
+                                <option value="1" {{ old('status', $specialist->status) == 1 || old('status', $specialist->status) == '1' ? 'selected' : '' }}>
                                     Active
                                 </option>
-
-                                <option value="Inactive"
-                                    {{ old('status', $specialist->status) == 'Inactive' ? 'selected' : '' }}>
+                                <option value="0" {{ old('status', $specialist->status) == 0 || old('status', $specialist->status) == '0' ? 'selected' : '' }}>
                                     Inactive
                                 </option>
-
                             </select>
 
                             @error('status')
@@ -110,6 +112,7 @@
 
                     </div>
 
+                    {{-- Form Actions --}}
                     <div class="text-end">
 
                         <button type="reset" class="btn btn-light">

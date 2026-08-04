@@ -9,6 +9,7 @@
 
             <div class="card-body">
 
+                {{-- Header Section --}}
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
                         <h4 class="card-title">Specialist List</h4>
@@ -18,28 +19,25 @@
                     </div>
 
                     <a href="{{ route('specialists.create') }}" class="btn btn-primary">
-                        <i class="fa fa-plus"></i> Add Specialist
+                        <i class="fa fa-plus mr-1"></i> Add Specialist
                     </a>
                 </div>
 
                 {{-- Success Message --}}
-                @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
+               
 
+                {{-- Table Section with Theme's DataTables ID & Classes --}}
                 <div class="table-responsive">
 
-                    <table class="table table-bordered table-hover">
+                    <table id="order-listing" class="table table-bordered table-hover">
 
                         <thead class="table-light">
                             <tr>
-                                <th width="80">#</th>
+                                <th width="60">#</th>
                                 <th>Name</th>
                                 <th>Description</th>
-                                <th>Status</th>
-                                <th width="180">Action</th>
+                                <th width="100">Status</th>
+                                <th width="140">Action</th>
                             </tr>
                         </thead>
 
@@ -49,12 +47,10 @@
 
                                 <tr>
 
-                                    <td>
-                                        {{ $specialists->firstItem() + $key }}
-                                    </td>
+                                    <td>{{ $loop->iteration }}</td>
 
                                     <td>
-                                        {{ $specialist->name }}
+                                        <strong>{{ $specialist->name }}</strong>
                                     </td>
 
                                     <td>
@@ -62,42 +58,44 @@
                                     </td>
 
                                     <td>
-                                        @if($specialist->status == 'Active')
-                                            <span class="badge badge-success">
-                                                Active
+                                        @if($specialist->status == '1' || $specialist->status == 1 || strtolower((string)$specialist->status) == 'active')
+                                            <span class="status-pill status-active">
+                                                <span class="dot"></span> Active
                                             </span>
                                         @else
-                                            <span class="badge badge-danger">
-                                                Inactive
+                                            <span class="status-pill status-inactive">
+                                                <span class="dot"></span> Inactive
                                             </span>
                                         @endif
                                     </td>
 
                                     <td>
+                                        <div class="d-flex gap-1">
+                                            {{-- Edit Button --}}
+                                            <a href="{{ route('specialists.edit', $specialist->id) }}"
+                                               class="btn btn-sm btn-warning"
+                                               title="Edit">
+                                                <i class="fa fa-edit"></i> Edit
+                                            </a>
 
-                                        <a href="{{ route('specialists.edit',$specialist->id) }}"
-                                           class="btn btn-sm btn-warning">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
+                                            {{-- Delete Form --}}
+                                            <form action="{{ route('specialists.destroy', $specialist->id) }}"
+                                                  method="POST"
+                                                  id="delete-form-{{ $specialist->id }}"
+                                                  class="d-inline">
 
-                                        <form action="{{ route('specialists.destroy',$specialist->id) }}"
-                                              method="POST"
-                                              class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
 
-                                            @csrf
-                                            @method('DELETE')
+                                                <button type="button"
+                                                        class="btn btn-sm btn-danger"
+                                                        title="Delete"
+                                                        onclick="confirmDelete({{ $specialist->id }})">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </button>
 
-                                            <button
-                                                type="submit"
-                                                class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure you want to delete this specialist?')">
-
-                                                <i class="fa fa-trash"></i>
-
-                                            </button>
-
-                                        </form>
-
+                                            </form>
+                                        </div>
                                     </td>
 
                                 </tr>
@@ -105,11 +103,9 @@
                             @empty
 
                                 <tr>
-
-                                    <td colspan="5" class="text-center">
+                                    <td colspan="5" class="text-center py-4 text-muted">
                                         No Specialists Found.
                                     </td>
-
                                 </tr>
 
                             @endforelse
@@ -118,10 +114,6 @@
 
                     </table>
 
-                </div>
-
-                <div class="mt-3">
-                    {{ $specialists->links() }}
                 </div>
 
             </div>

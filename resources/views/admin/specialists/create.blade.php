@@ -40,7 +40,7 @@
                     <div class="row">
 
                         <!-- Specialist Name -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-12 mb-3">
                             <label class="form-label">
                                 Specialist Name <span class="text-danger">*</span>
                             </label>
@@ -50,40 +50,10 @@
                                 name="name"
                                 class="form-control @error('name') is-invalid @enderror"
                                 value="{{ old('name') }}"
-                                placeholder="Enter Specialist Name">
+                                placeholder="Enter Specialist Name"
+                                required>
 
                             @error('name')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        <!-- Status -->
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">
-                                Status <span class="text-danger">*</span>
-                            </label>
-
-                            <select
-                                name="status"
-                                class="form-control @error('status') is-invalid @enderror">
-
-                                <option value="">Select Status</option>
-
-                                <option value="Active"
-                                    {{ old('status') == 'Active' ? 'selected' : '' }}>
-                                    Active
-                                </option>
-
-                                <option value="Inactive"
-                                    {{ old('status') == 'Inactive' ? 'selected' : '' }}>
-                                    Inactive
-                                </option>
-
-                            </select>
-
-                            @error('status')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Department;
+use App\Models\Specialist;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
@@ -18,8 +19,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        // Status 1 aslele users fetch hotiil (Status 0 wale list madhun hide hotiil)
-        $users = User::with(['roles', 'department'])
+        // Added 'specialist' relationship in eager loading
+        $users = User::with(['roles', 'department', 'specialist'])
                      ->where('status', 1)
                      ->latest()
                      ->paginate(10);
@@ -34,7 +35,9 @@ class UserController extends Controller
     {
         $departments = Department::all();
         $roles = Role::select('id', 'name')->get();
-        return view('admin.user.create', compact('departments', 'roles'));
+        $specialists = Specialist::where('status', 1)->get(); // Fetched active specialists
+        
+        return view('admin.user.create', compact('departments', 'roles', 'specialists'));
     }
 
     /**
@@ -52,15 +55,14 @@ class UserController extends Controller
             'dob'           => 'nullable|date',
             'department_id' => 'required|exists:departments,id',
             'role_id'       => 'required|exists:roles,id',
+            'specialist_id' => 'nullable|exists:specialists,id',
             'password'      => 'required|string|min:8|confirmed',
             'photo'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-           'status'         => 1,
             'address'       => 'nullable|string',
             'city'          => 'nullable|string|max:100',
             'state'         => 'nullable|string|max:100',
             'pincode'       => 'nullable|string|max:20',
         ]);
-          
 
         DB::beginTransaction();
         try {
@@ -81,19 +83,21 @@ class UserController extends Controller
                 'gender'        => $request->gender,
                 'dob'           => $request->dob,
                 'department_id' => $request->department_id,
+                'specialist_id' => $request->specialist_id,
                 'password'      => Hash::make($request->password),
                 'photo'         => $photoPath,
-                'status'        => $request->status,
+                'status'        => 1,
                 'address'       => $request->address,
                 'city'          => $request->city,
                 'state'         => $request->state,
                 'pincode'       => $request->pincode,
-                'role_id'       => $request->role_id, // Optional
+                'role_id'       => $request->role_id,
             ]);
-            // Get Role by ID
+
+            // Get Role by ID & Assign Role (Spatie)
             $role = Role::findOrFail($request->role_id);
-            // Assign Role (Spatie)
             $user->assignRole($role->name);
+
             DB::commit();
             return redirect()->route('users.index')->with('success', 'User created successfully.');
         } catch (\Exception $e) {
@@ -104,7 +108,8 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        $user->load(['department', 'roles']);
+        // Added 'specialist' relationship
+        $user->load(['department', 'roles', 'specialist']);
         return view('admin.user.show', compact('user'));
     }
 
@@ -112,9 +117,10 @@ class UserController extends Controller
     {
         $departments = Department::all();
         $roles = Role::pluck('name', 'name')->all();
+        $specialists = Specialist::where('status', 1)->get(); // Passed specialists to edit view
         $userRole = $user->roles->pluck('name', 'name')->first();
 
-        return view('admin.user.edit', compact('user', 'departments', 'roles', 'userRole'));
+        return view('admin.user.edit', compact('user', 'departments', 'roles', 'userRole', 'specialists'));
     }
 
     /**
@@ -132,6 +138,7 @@ class UserController extends Controller
             'dob'           => 'nullable|date',
             'department_id' => 'required|exists:departments,id',
             'role'          => 'required|exists:roles,name',
+            'specialist_id' => 'nullable|exists:specialists,id',
             'photo'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status'        => 'required|in:1,0',
             'address'       => 'nullable|string',
@@ -150,6 +157,7 @@ class UserController extends Controller
             'gender'        => $request->gender,
             'dob'           => $request->dob,
             'department_id' => $request->department_id,
+            'specialist_id' => $request->specialist_id,
             'status'        => $request->status,
             'address'       => $request->address,
             'city'          => $request->city,
