@@ -22,8 +22,17 @@
           }
         }
       } else {
-        //for other url
-        if ($this.attr('href').indexOf(current) !== -1) {
+        //for other url - match by last two path segments (module/action) to avoid generic matches like 'create'
+        var href = $this.attr('href') || '';
+        href = href.split(/[?#]/)[0]; // remove query/hash
+        function pathSegments(p) { return p.split('/').filter(function(s){ return s.length > 0; }); }
+        var currentSegments = pathSegments(location.pathname);
+        var hrefSegments = pathSegments(href);
+        var currentKey = currentSegments.slice(-2).join('/');
+        var hrefKey = hrefSegments.slice(-2).join('/');
+        if (!currentKey) currentKey = currentSegments.slice(-1).join('/');
+        if (!hrefKey) hrefKey = hrefSegments.slice(-1).join('/');
+        if (hrefKey && currentKey && hrefKey === currentKey) {
           $(this).parents('.nav-item').last().addClass('active');
           if ($(this).parents('.sub-menu').length) {
             $(this).closest('.collapse').addClass('show');
