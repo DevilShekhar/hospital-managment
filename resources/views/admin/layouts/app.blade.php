@@ -528,7 +528,7 @@
               <span class="menu-title">Specialist Management</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="specialistManagement">
+            <div class="collapse" id="specialistManagement" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{{ route('specialists.index') }}">Specialist List</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{ route('specialists.create') }}">Create Specialist</a></li>
@@ -541,7 +541,7 @@
               <span class="menu-title">Patient Management</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic">
+            <div class="collapse" id="ui-basic" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{{ route('patients.index') }}">Patient List</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{ route('patients.create') }}">Create Patient</a></li>
@@ -555,7 +555,7 @@
               <span class="menu-title">Appointment Management</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-advanced">
+            <div class="collapse" id="ui-advanced" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{{ route('appointments.index') }}"> Appointments List</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{ route('appointments.create') }}"> Create Appointment</a></li>  
@@ -569,7 +569,7 @@
               <span class="menu-title">Doctor Schedule</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="form-elements">
+            <div class="collapse" id="form-elements" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"><a class="nav-link" href="{{ route('doctor-schedules.index') }}">Schedule List</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('doctor-schedules.create') }}">Create Schedule</a></li>
@@ -582,7 +582,7 @@
               <span class="menu-title">Queue Management</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="editors">
+            <div class="collapse" id="editors" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"><a class="nav-link" href="{{ route('queues.create') }}">Create Queue</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('queues.index') }}">Queue List</a></li>
@@ -595,7 +595,7 @@
               <span class="menu-title">Medical Records</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="charts">
+            <div class="collapse" id="charts" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{{ route('medical_records.create') }}">Create Medical Record</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{route('medical_records.index') }}">Medical Record List</a></li>
@@ -608,7 +608,7 @@
               <span class="menu-title">Prescription Modules</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="tables">
+            <div class="collapse" id="tables" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/tables/data-table.html">Data table</a></li>
@@ -651,7 +651,7 @@
               <span class="menu-title">Icons</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="icons">
+            <div class="collapse" id="icons" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/icons/flag-icons.html">Flag icons</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/icons/font-awesome.html">Font Awesome</a></li>
@@ -667,7 +667,7 @@
               <span class="menu-title">Reports</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="maps">
+            <div class="collapse" id="maps" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/maps/mapeal.html">Mapeal</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/maps/vector-map.html">Vector Map</a></li>
@@ -681,7 +681,7 @@
               <span class="menu-title">Calender</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="auth">
+            <div class="collapse" id="auth" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> Login 2 </a></li>
@@ -697,7 +697,7 @@
               <span class="menu-title">Error pages</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="error">
+            <div class="collapse" id="error" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
@@ -711,7 +711,7 @@
               <span class="menu-title">CMS moduels</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="general-pages">
+            <div class="collapse" id="general-pages" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/profile.html"> Profile </a></li>
@@ -731,7 +731,7 @@
               <span class="menu-title">Apps</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="apps">
+            <div class="collapse" id="apps" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/apps/email.html"> Email </a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/apps/calendar.html"> Calendar </a></li>
@@ -747,7 +747,7 @@
               <span class="menu-title">E-commerce</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="e-commerce">
+            <div class="collapse" id="e-commerce" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/invoice.html"> Invoice </a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/pricing-table.html"> Pricing Table </a>
