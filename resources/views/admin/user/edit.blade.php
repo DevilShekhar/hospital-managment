@@ -128,13 +128,15 @@
                         @enderror
                     </div>
 
-                    {{-- Role --}}
+                    {{-- Role (Added data-name attribute for JavaScript detection) --}}
                     <div class="col-md-4 mb-3">
                         <label for="role">Role <span class="text-danger">*</span></label>
                         <select class="form-control @error('role') is-invalid @enderror" name="role" id="role" required>
                             <option value="">Select Role</option>
                             @foreach($roles as $role)
-                                <option value="{{ $role }}" {{ old('role', $userRole) == $role ? 'selected' : '' }}>
+                                <option value="{{ $role }}" 
+                                        data-name="{{ strtolower($role) }}" 
+                                        {{ old('role', $userRole) == $role ? 'selected' : '' }}>
                                     {{ $role }}
                                 </option>
                             @endforeach
@@ -143,7 +145,25 @@
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
-                  
+
+                    {{-- Specialist Field (Visible only when 'Doctor' role is selected) --}}
+                    <div class="col-md-4 mb-3" id="specialist_wrapper" style="display: none;">
+                        <label for="specialist_id">Specialist / Specialization <span class="text-danger">*</span></label>
+                        <select class="form-control @error('specialist_id') is-invalid @enderror" name="specialist_id" id="specialist_id">
+                            <option value="">Select Specialist</option>
+                            @if(isset($specialists))
+                                @foreach($specialists as $specialist)
+                                    <option value="{{ $specialist->id }}" {{ old('specialist_id', $user->specialist_id) == $specialist->id ? 'selected' : '' }}>
+                                        {{ $specialist->name }}
+                                    </option>
+                                @endforeach
+                            @endif
+                        </select>
+                        @error('specialist_id')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                     {{-- Profile Photo --}}
                     <div class="col-md-6 mb-3">
                         <label for="photo">Profile Photo</label>
@@ -220,3 +240,41 @@
     </form>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const roleSelect = document.getElementById('role');
+        const specialistWrapper = document.getElementById('specialist_wrapper');
+        const specialistSelect = document.getElementById('specialist_id');
+
+        function toggleSpecialistField() {
+            const selectedOption = roleSelect.options[roleSelect.selectedIndex];
+            const roleName = selectedOption ? selectedOption.getAttribute('data-name') : '';
+
+            // Check if selected role is 'doctor'
+            if (roleName === 'doctor') {
+                specialistWrapper.style.display = 'block';
+                specialistSelect.setAttribute('required', 'required');
+            } else {
+                specialistWrapper.style.display = 'none';
+                specialistSelect.removeAttribute('required');
+            }
+        }
+
+        // On Role change event
+        roleSelect.addEventListener('change', function() {
+            toggleSpecialistField();
+            // Reset specialist dropdown if switched away from Doctor
+            const selectedOption = roleSelect.options[roleSelect.selectedIndex];
+            const roleName = selectedOption ? selectedOption.getAttribute('data-name') : '';
+            if (roleName !== 'doctor') {
+                specialistSelect.value = '';
+            }
+        });
+
+        // Run immediately on page load to detect existing Doctor role
+        toggleSpecialistField();
+    });
+</script>
+@endpush

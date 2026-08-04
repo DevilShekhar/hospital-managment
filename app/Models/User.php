@@ -29,7 +29,8 @@ class User extends Authenticatable
         'state',
         'pincode',
         'status',
-        'role_id'
+        'role_id',
+        'specialist_id',
     ];
 
     protected $hidden = [
@@ -56,4 +57,8 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function specialist()
+{
+    return $this->belongsTo(Specialist::class, 'specialist_id');
+}
 }  

@@ -132,18 +132,40 @@
                         @enderror
                     </div>
 
-                    {{-- Dynamic Role --}}
+                    {{-- Dynamic Role (Added Direct onchange) --}}
                     <div class="col-md-4 mb-3">
                         <label for="role_id">Role <span class="text-danger">*</span></label>
-                        <select class="form-control @error('role_id') is-invalid @enderror" name="role_id" id="role_id" required>
+                        <select class="form-control @error('role_id') is-invalid @enderror" 
+                                name="role_id" 
+                                id="role_id" 
+                                onchange="handleRoleChange(this)"
+                                required>
                             <option value="">Select Role</option>
                             @foreach($roles as $role)
-                                <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>
+                                <option value="{{ $role->id }}" 
+                                        data-name="{{ strtolower($role->name) }}" 
+                                        {{ old('role_id') == $role->id ? 'selected' : '' }}>
                                     {{ $role->name }}
                                 </option>
                             @endforeach
                         </select>
                         @error('role_id')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    {{-- Specialist Wrapper (Hidden by default using style) --}}
+                    <div class="col-md-4 mb-3" id="specialist_wrapper" style="display: none !important;">
+                        <label for="specialist_id">Specialist / Specialization <span class="text-danger">*</span></label>
+                        <select class="form-control @error('specialist_id') is-invalid @enderror" name="specialist_id" id="specialist_id">
+                            <option value="">Select Specialist</option>
+                            @foreach($specialists as $specialist)
+                                <option value="{{ $specialist->id }}" {{ old('specialist_id') == $specialist->id ? 'selected' : '' }}>
+                                    {{ $specialist->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('specialist_id')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
@@ -183,9 +205,6 @@
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
-
-                    {{-- Status --}}
-                    
 
                     {{-- Address --}}
                     <div class="col-md-12 mb-3">
@@ -235,4 +254,38 @@
         </div>
     </form>
 </div>
+
+{{-- Direct Script Tag to avoid @push dependency issues --}}
+<script>
+    function handleRoleChange(selectElement) {
+        var wrapper = document.getElementById('specialist_wrapper');
+        var specialistSelect = document.getElementById('specialist_id');
+
+        if (!selectElement || selectElement.selectedIndex === -1) {
+            wrapper.style.setProperty('display', 'none', 'important');
+            return;
+        }
+
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        var roleText = selectedOption.text.trim().toLowerCase();
+        var dataName = selectedOption.getAttribute('data-name') ? selectedOption.getAttribute('data-name').toLowerCase() : '';
+
+        if (roleText === 'doctor' || dataName === 'doctor') {
+            wrapper.style.setProperty('display', 'block', 'important');
+            specialistSelect.setAttribute('required', 'required');
+        } else {
+            wrapper.style.setProperty('display', 'none', 'important');
+            specialistSelect.removeAttribute('required');
+            specialistSelect.value = '';
+        }
+    }
+
+    // Auto-check on page load
+    window.addEventListener('load', function() {
+        var roleSelect = document.getElementById('role_id');
+        if (roleSelect) {
+            handleRoleChange(roleSelect);
+        }
+    });
+</script>
 @endsection

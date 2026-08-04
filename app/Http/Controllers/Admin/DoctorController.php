@@ -9,7 +9,7 @@ class DoctorController extends Controller
 {
     public function index()
     {
-        $doctors = User::with(['department', 'roles'])
+        $doctors = User::with(['department', 'roles', 'specialist'])
             ->role('Doctor')
             ->latest()
             ->paginate(10);
