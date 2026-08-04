@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\DoctorController;
 use App\Http\Controllers\admin\AppointmentController;
 use App\Http\Controllers\admin\DoctorScheduleController;
 use App\Http\Controllers\admin\QueueManagementController;
+use App\Http\Controllers\admin\PatientController;
 
 
 
@@ -30,6 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('appointments', AppointmentController::class);
     Route::resource('doctor-schedules', DoctorScheduleController::class);
     Route::resource('queues', QueueManagementController::class);
+    Route::resource('patients', PatientController::class);
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
