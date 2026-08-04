@@ -523,6 +523,19 @@
             </div>
           </li>
           <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#specialistManagement" aria-expanded="false" aria-controls="specialistManagement">
+              <i class="far fa-compass menu-icon"></i>
+              <span class="menu-title">Specialist Management</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="specialistManagement">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{{ route('specialists.index') }}">Specialist List</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('specialists.create') }}">Create Specialist</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="far fa-compass menu-icon"></i>
               <span class="menu-title">Patient Management</span>
