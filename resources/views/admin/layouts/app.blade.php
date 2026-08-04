@@ -597,14 +597,8 @@
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/morris.html">Morris</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/flot-chart.html">Flot</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/google-charts.html">Google charts</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/sparkline.html">Sparkline js</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/c3.html">C3 charts</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartist.html">Chartists</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/justGage.html">JustGage</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('medical_records.create') }}">Create Medical Record</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{route('medical_records.index') }}">Medical Record List</a></li>
               </ul>
             </div>
           </li>
