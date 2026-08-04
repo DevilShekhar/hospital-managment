@@ -610,11 +610,8 @@
             </a>
             <div class="collapse" id="tables" data-parent="#sidebar">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/tables/data-table.html">Data table</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/tables/js-grid.html">Js-grid</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/tables/sortable-table.html">Sortable table</a>
-                </li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('prescriptions.create') }}">Create Prescription</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('prescriptions.index') }}">Prescription List</a></li>
               </ul>
             </div>
           </li>
