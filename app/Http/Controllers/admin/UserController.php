@@ -54,12 +54,13 @@ class UserController extends Controller
             'role_id'       => 'required|exists:roles,id',
             'password'      => 'required|string|min:8|confirmed',
             'photo'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'status'        => 'required|in:1,0',
+           'status'         => 1,
             'address'       => 'nullable|string',
             'city'          => 'nullable|string|max:100',
             'state'         => 'nullable|string|max:100',
             'pincode'       => 'nullable|string|max:20',
         ]);
+          
 
         DB::beginTransaction();
         try {
@@ -131,7 +132,6 @@ class UserController extends Controller
             'dob'           => 'nullable|date',
             'department_id' => 'required|exists:departments,id',
             'role'          => 'required|exists:roles,name',
-            'password'      => 'nullable|string|min:8|confirmed',
             'photo'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status'        => 'required|in:1,0',
             'address'       => 'nullable|string',
@@ -156,11 +156,6 @@ class UserController extends Controller
             'state'         => $request->state,
             'pincode'       => $request->pincode,
         ];
-
-        // Update Password if provided
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
-        }
 
         // Handle Photo Upload & Delete Old Image
         if ($request->hasFile('photo')) {

@@ -143,28 +143,7 @@
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
-
-                    {{-- Password (Optional on edit) --}}
-                    <div class="col-md-6 mb-3">
-                        <label for="password">Password <small class="text-muted">(Leave blank to keep current password)</small></label>
-                        <input type="password" 
-                               id="password" 
-                               name="password" 
-                               class="form-control @error('password') is-invalid @enderror">
-                        @error('password')
-                            <span class="invalid-feedback">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    {{-- Confirm Password --}}
-                    <div class="col-md-6 mb-3">
-                        <label for="password_confirmation">Confirm Password</label>
-                        <input type="password" 
-                               id="password_confirmation" 
-                               name="password_confirmation" 
-                               class="form-control">
-                    </div>
-
+                  
                     {{-- Profile Photo --}}
                     <div class="col-md-6 mb-3">
                         <label for="photo">Profile Photo</label>

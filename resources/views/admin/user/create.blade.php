@@ -185,16 +185,7 @@
                     </div>
 
                     {{-- Status --}}
-                    <div class="col-md-6 mb-3">
-                        <label for="status">Status</label>
-                        <select class="form-control @error('status') is-invalid @enderror" name="status" id="status">
-                            <option value="1" {{ old('status', '1') == '1' ? 'selected' : '' }}>Active</option>
-                            <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
-                        </select>
-                        @error('status')
-                            <span class="invalid-feedback">{{ $message }}</span>
-                        @enderror
-                    </div>
+                    
 
                     {{-- Address --}}
                     <div class="col-md-12 mb-3">
