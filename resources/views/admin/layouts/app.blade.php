@@ -619,11 +619,29 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pages/ui-features/popups.html">
-              <i class="fas fa-minus-square menu-icon"></i>
-              <span class="menu-title">laboratory management</span>
-            </a>
-          </li>
+          <a class="nav-link" data-toggle="collapse" href="#laboratoryManagement"
+              aria-expanded="false" aria-controls="laboratoryManagement">
+              <i class="fas fa-flask menu-icon"></i>
+              <span class="menu-title">Laboratory Management</span>
+              <i class="menu-arrow"></i>
+          </a>
+
+    <div class="collapse" id="laboratoryManagement">
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('laboratories.create') }}">
+                    Create Laboratory Test
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('laboratories.index') }}">
+                    Laboratory Test List
+                </a>
+            </li>
+        </ul>
+    </div>
+</li>
 
           <li class="nav-item">
             <a class="nav-link" href="pages/ui-features/popups.html">
