@@ -13,7 +13,7 @@ use App\Http\Controllers\admin\QueueManagementController;
 use App\Http\Controllers\admin\PatientController;
 use App\Http\Controllers\admin\SpecialistController;
 use App\Http\Controllers\admin\MedicalRecordController;
-
+use App\Http\Controllers\admin\PrescriptionController;
 
 
 
@@ -39,6 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('patients', PatientController::class);
     Route::resource('specialists', SpecialistController::class);
     Route::resource('medical_records',MedicalRecordController::class);
+    Route::resource('prescriptions',PrescriptionController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
