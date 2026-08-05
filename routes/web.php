@@ -14,6 +14,7 @@ use App\Http\Controllers\admin\PatientController;
 use App\Http\Controllers\admin\SpecialistController;
 use App\Http\Controllers\admin\MedicalRecordController;
 use App\Http\Controllers\admin\LaboratoryController;
+use App\Http\Controllers\admin\PrescriptionController;
 
 
 
@@ -27,6 +28,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DesignerDashboardController::class, 'index'])
         ->name('dashboard');
 
+    Route::get('/get-doctors-by-department', [PatientController::class, 'getDoctorsByDepartment'])
+        ->name('get.doctors.by.department');
+
     Route::resource('users', UserController::class);
     Route::resource('roles', RolesController::class);
     Route::resource('departments', DepartmentController::class);
@@ -38,6 +42,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('specialists', SpecialistController::class);
     Route::resource('medical_records',MedicalRecordController::class);
     Route::resource('laboratories', LaboratoryController::class);
+    Route::resource('prescriptions',PrescriptionController::class);
+
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
