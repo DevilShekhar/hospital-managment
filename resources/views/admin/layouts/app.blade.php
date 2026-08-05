@@ -624,14 +624,12 @@
               <span class="menu-title">laboratory management</span>
             </a>
           </li>
-
           <li class="nav-item">
             <a class="nav-link" href="pages/ui-features/popups.html">
               <i class="fas fa-minus-square menu-icon"></i>
               <span class="menu-title">Pharmacy</span>
             </a>
           </li>
-
           <li class="nav-item">
             <a class="nav-link" href="pages/ui-features/popups.html">
               <i class="fas fa-minus-square menu-icon"></i>
