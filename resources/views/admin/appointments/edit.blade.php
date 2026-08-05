@@ -3,11 +3,11 @@
 @section('content')
 <div class="content-wrapper">
     <div class="page-header">
-        <h3 class="page-title">Create Appointment</h3>
+        <h3 class="page-title">Edit Appointment</h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('appointments.index') }}">Appointments</a></li>
-                <li class="breadcrumb-item active">Create Appointment</li>
+                <li class="breadcrumb-item active">Edit Appointment</li>
             </ol>
         </nav>
     </div>
@@ -16,7 +16,7 @@
         <div class="card-body">
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="card-title">New Appointment Registration</h4>
+                <h4 class="card-title">Update Appointment Details</h4>
                 <a href="{{ route('appointments.index') }}" class="btn btn-secondary btn-sm">
                     <i class="fas fa-arrow-left"></i> Back
                 </a>
@@ -26,8 +26,9 @@
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
 
-            <form action="{{ route('appointments.store') }}" method="POST">
+            <form action="{{ route('appointments.update', $appointment->id) }}" method="POST">
                 @csrf
+                @method('PUT')
 
                 <div class="row">
 
@@ -39,14 +40,15 @@
                             @foreach($patients as $patient)
                                 <option value="{{ $patient->id }}" 
                                         data-name="{{ $patient->first_name }} {{ $patient->last_name }}"
-                                        data-phone="{{ $patient->phone }}">
+                                        data-phone="{{ $patient->phone }}"
+                                        {{ old('patient_id', $appointment->patient_id) == $patient->id ? 'selected' : '' }}>
                                     {{ $patient->patient_id }} - {{ $patient->first_name }} {{ $patient->last_name }} ({{ $patient->phone }})
                                 </option>
                             @endforeach
                         </select>
                     </div>
 
-                    <input type="hidden" name="patient_id" id="patient_id" value="{{ old('patient_id') }}">
+                    <input type="hidden" name="patient_id" id="patient_id" value="{{ old('patient_id', $appointment->patient_id) }}">
 
                     <!-- Appointment No -->
                     <div class="col-md-4 mb-3">
@@ -54,7 +56,7 @@
                         <input type="text"
                                class="form-control"
                                name="appointment_no"
-                               value="{{ old('appointment_no', 'APT' . date('YmdHis')) }}"
+                               value="{{ $appointment->appointment_no }}"
                                readonly>
                     </div>
 
@@ -64,8 +66,7 @@
                         <input type="date"
                                class="form-control @error('appointment_date') is-invalid @enderror"
                                name="appointment_date"
-                               value="{{ old('appointment_date', date('Y-m-d')) }}"
-                               min="{{ date('Y-m-d') }}"
+                               value="{{ old('appointment_date', $appointment->appointment_date) }}"
                                required>
                         @error('appointment_date')
                             <small class="text-danger">{{ $message }}</small>
@@ -78,7 +79,7 @@
                         <input type="time"
                                class="form-control @error('appointment_time') is-invalid @enderror"
                                name="appointment_time"
-                               value="{{ old('appointment_time', date('H:i')) }}"
+                               value="{{ old('appointment_time', $appointment->appointment_time) }}"
                                required>
                         @error('appointment_time')
                             <small class="text-danger">{{ $message }}</small>
@@ -91,7 +92,7 @@
                         <select class="form-control @error('department_id') is-invalid @enderror" id="department_id" name="department_id" required>
                             <option value="">Select Department</option>
                             @foreach($departments as $department)
-                                <option value="{{ $department->id }}" {{ old('department_id') == $department->id ? 'selected' : '' }}>
+                                <option value="{{ $department->id }}" {{ old('department_id', $appointment->department_id) == $department->id ? 'selected' : '' }}>
                                     {{ $department->name ?? $department->department_name }}
                                 </option>
                             @endforeach
@@ -107,7 +108,7 @@
                         <select name="specialist_id" id="specialist_id" class="form-control">
                             <option value="">Select Specialist</option>
                             @foreach($specialists as $specialist)
-                                <option value="{{ $specialist->id }}" {{ old('specialist_id') == $specialist->id ? 'selected' : '' }}>
+                                <option value="{{ $specialist->id }}" {{ old('specialist_id', $appointment->specialist_id) == $specialist->id ? 'selected' : '' }}>
                                     {{ $specialist->name }}
                                 </option>
                             @endforeach
@@ -125,7 +126,7 @@
                                 @endphp
                                 <option value="{{ $doctor->id }}"
                                         data-department="{{ $doctor->department_id }}"
-                                        {{ old('doctor_id') == $doctor->id ? 'selected' : '' }}>
+                                        {{ old('doctor_id', $appointment->doctor_id) == $doctor->id ? 'selected' : '' }}>
                                     Dr. {{ $docName }}
                                 </option>
                             @endforeach
@@ -142,7 +143,7 @@
                                class="form-control @error('mobile_number') is-invalid @enderror"
                                id="mobile_number"
                                name="mobile_number"
-                               value="{{ old('mobile_number') }}"
+                               value="{{ old('mobile_number', $appointment->mobile_number) }}"
                                placeholder="Enter 10-digit Mobile Number"
                                maxlength="10"
                                required>
@@ -158,7 +159,7 @@
                                class="form-control @error('patient_name') is-invalid @enderror"
                                id="patient_name"
                                name="patient_name"
-                               value="{{ old('patient_name') }}"
+                               value="{{ old('patient_name', $appointment->patient_name) }}"
                                placeholder="Enter Patient Name"
                                required>
                         @error('patient_name')
@@ -166,46 +167,57 @@
                         @enderror
                     </div>
 
+                    <!-- Status Selection -->
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Status <span class="text-danger">*</span></label>
+                        <select class="form-control" name="status" required>
+                            <option value="Scheduled" {{ old('status', $appointment->status) == 'Scheduled' ? 'selected' : '' }}>Scheduled</option>
+                            <option value="Confirmed" {{ old('status', $appointment->status) == 'Confirmed' ? 'selected' : '' }}>Confirmed</option>
+                            <option value="Completed" {{ old('status', $appointment->status) == 'Completed' ? 'selected' : '' }}>Completed</option>
+                            <option value="Cancelled" {{ old('status', $appointment->status) == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
+                        </select>
+                    </div>
+
                     <!-- Visit Type -->
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="form-label">Visit Type</label>
                         <select class="form-control" name="visit_type">
-                            <option value="New Consultation">New Consultation</option>
-                            <option value="Follow-up">Follow-up</option>
-                            <option value="Routine Checkup">Routine Checkup</option>
-                            <option value="Emergency">Emergency</option>
+                            <option value="New Consultation" {{ old('visit_type', $appointment->visit_type) == 'New Consultation' ? 'selected' : '' }}>New Consultation</option>
+                            <option value="Follow-up" {{ old('visit_type', $appointment->visit_type) == 'Follow-up' ? 'selected' : '' }}>Follow-up</option>
+                            <option value="Routine Checkup" {{ old('visit_type', $appointment->visit_type) == 'Routine Checkup' ? 'selected' : '' }}>Routine Checkup</option>
+                            <option value="Emergency" {{ old('visit_type', $appointment->visit_type) == 'Emergency' ? 'selected' : '' }}>Emergency</option>
                         </select>
                     </div>
 
                     <!-- Priority -->
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="form-label">Priority</label>
                         <select class="form-control" name="priority">
-                            <option value="Low">Low</option>
-                            <option value="Normal" selected>Normal</option>
-                            <option value="High">High</option>
-                            <option value="Urgent">Urgent</option>
+                            <option value="Low" {{ old('priority', $appointment->priority) == 'Low' ? 'selected' : '' }}>Low</option>
+                            <option value="Normal" {{ old('priority', $appointment->priority) == 'Normal' ? 'selected' : '' }}>Normal</option>
+                            <option value="High" {{ old('priority', $appointment->priority) == 'High' ? 'selected' : '' }}>High</option>
+                            <option value="Urgent" {{ old('priority', $appointment->priority) == 'Urgent' ? 'selected' : '' }}>Urgent</option>
                         </select>
                     </div>
 
                     <!-- Reason -->
                     <div class="col-md-12 mb-3">
                         <label class="form-label">Reason for Visit</label>
-                        <textarea class="form-control" rows="2" name="reason" placeholder="Enter reason for appointment">{{ old('reason') }}</textarea>
+                        <textarea class="form-control" rows="2" name="reason">{{ old('reason', $appointment->reason) }}</textarea>
                     </div>
 
                     <!-- Notes -->
                     <div class="col-md-12 mb-3">
                         <label class="form-label">Notes</label>
-                        <textarea class="form-control" rows="2" name="notes" placeholder="Additional notes">{{ old('notes') }}</textarea>
+                        <textarea class="form-control" rows="2" name="notes">{{ old('notes', $appointment->notes) }}</textarea>
                     </div>
 
                 </div>
 
                 <div class="mt-3">
-                    <button type="reset" class="btn btn-warning">Reset</button>
+                    <a href="{{ route('appointments.index') }}" class="btn btn-light">Cancel</a>
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save mr-1"></i> Save Appointment
+                        <i class="fas fa-save mr-1"></i> Update Appointment
                     </button>
                 </div>
 
@@ -231,14 +243,10 @@ $(document).ready(function() {
             $('#patient_id').val(patientId);
             $('#patient_name').val(name);
             $('#mobile_number').val(phone);
-        } else {
-            $('#patient_id').val('');
-            $('#patient_name').val('');
-            $('#mobile_number').val('');
         }
     });
 
-    // Filter Doctors based on selected Department
+    // Filter Doctors based on Department
     $('#department_id').on('change', function() {
         var selectedDepartment = $(this).val();
         var doctorSelect = $('#doctor_id');
@@ -254,18 +262,6 @@ $(document).ready(function() {
                 $(this).hide();
             }
         });
-
-        doctorSelect.val('');
     });
-
-    // Auto select Department when Doctor is chosen
-    $('#doctor_id').on('change', function() {
-        var selectedOption = $(this).find('option:selected');
-        var doctorDept = selectedOption.data('department');
-
-        if (doctorDept && !$('#department_id').val()) {
-            $('#department_id').val(doctorDept);
-        }
-    });
-});
+});F
 </script>
