@@ -26,6 +26,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DesignerDashboardController::class, 'index'])
         ->name('dashboard');
 
+    Route::get('/get-doctors-by-department', [PatientController::class, 'getDoctorsByDepartment'])
+        ->name('get.doctors.by.department');
+
     Route::resource('users', UserController::class);
     Route::resource('roles', RolesController::class);
     Route::resource('departments', DepartmentController::class);
