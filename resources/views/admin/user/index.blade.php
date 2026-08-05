@@ -4,12 +4,7 @@
 <div class="content-wrapper">
     <div class="page-header">
         <h3 class="page-title">User Management</h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">User Management</a></li>
-                <li class="breadcrumb-item active">User List</li>
-            </ol>
-        </nav>
+    
     </div>
 
     <div class="card">
@@ -25,14 +20,14 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Employee ID</th>
-                            <th>Name</th>
-                            <th>Role</th>
-                            <th>Department</th>
-                            <th>Email</th>
-                            <th>Mobile</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th data-orderable="false">Employee ID</th>
+                            <th data-orderable="false">Name</th>
+                            <th data-orderable="false">Role</th>
+                            <th data-orderable="false">Department</th>
+                            <th data-orderable="false">Email</th>
+                            <th data-orderable="false">Mobile</th>
+                            <th data-orderable="false">Status</th>
+                            <th data-orderable="false">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,21 +63,22 @@
                                     <div class="d-flex gap-1">
                                         <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-info">View</a>
                                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                        
-                                        {{-- Fixed Delete Form --}}
-                                        <form action="{{ route('users.destroy', $user->id) }}" 
-                                              method="POST" 
-                                              id="delete-form-{{ $user->id }}" 
-                                              class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            
-                                            <button type="button" 
-                                                    class="btn btn-sm btn-danger" 
-                                                    onclick="confirmDelete({{ $user->id }})">
-                                                Delete
-                                            </button>
-                                        </form>
+
+                                        @if($user->status == 1)
+                                            <form action="{{ route('users.destroy', $user->id) }}"
+                                                method="POST"
+                                                id="delete-form-{{ $user->id }}"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="button"
+                                                        class="btn btn-sm btn-danger"
+                                                        onclick="confirmDelete({{ $user->id }})">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
