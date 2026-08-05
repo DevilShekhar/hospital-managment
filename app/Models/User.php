@@ -47,6 +47,7 @@ class User extends Authenticatable
         ];
     }
 
+    
     // Relationship with Department
     public function department()
     {

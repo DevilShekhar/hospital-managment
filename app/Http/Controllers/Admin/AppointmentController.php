@@ -4,42 +4,48 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
-use Illuminate\Http\Request;
 use App\Models\Department;
-use App\Models\Doctor;
+use App\Models\Specialist;
+use App\Models\User;
+use App\Models\Patient;
+use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    
-    public function index()
-{
-    $appointments = Appointment::with(['department', 'doctor'])
-                    ->latest()
-                    ->paginate(10);
+    public function index(Request $request)
+    {
+        // Fetch appointments with relations (Soft deleted items will be automatically excluded)
+        $query = Appointment::with(['department', 'specialist', 'doctor', 'patient']);
 
-    return view('admin.appointments.index', compact('appointments'));
-}
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('patient_name', 'LIKE', "%{$search}%")
+                  ->orWhere('mobile_number', 'LIKE', "%{$search}%")
+                  ->orWhere('appointment_no', 'LIKE', "%{$search}%");
+            });
+        }
 
-   public function create()
-{
-    $departments = Department::all();
-    $doctors = Doctor::all();
+        $appointments = $query->latest()->paginate(10);
 
-    $specializations = Doctor::select('specialization')
-        ->distinct()
-        ->whereNotNull('specialization')
-        ->orderBy('specialization')
-        ->get();
+        return view('admin.appointments.index', compact('appointments'));
+    }
 
-    return view('admin.appointments.create', compact(
-        'departments',
-        'doctors',
-        'specializations'
-    ));
-}
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $departments = Department::where('status', 1)->get();
+        $specialists = Specialist::where('status', 1)->get();
+        $doctors     = User::whereNotNull('department_id')->get();
+        $patients    = Patient::latest()->get();
+
+        return view('admin.appointments.create', compact('departments', 'specialists', 'doctors', 'patients'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -47,30 +53,29 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-        'patient_name'      => 'required|string|max:255',
-        'mobile_number'     => 'required|digits:10',
-        'department_id'     => 'required',
-        'doctor_id'         => 'required',
-        'appointment_date'  => 'required|date',
-        'appointment_time'  => 'required',
-    ]);
+            'patient_id'       => 'nullable',
+            'patient_name'     => 'required|string|max:255',
+            'mobile_number'    => 'required|digits:10',
+            'department_id'    => 'required',
+            'doctor_id'        => 'required',
+            'specialist_id'    => 'nullable',
+            'appointment_date' => 'required|date',
+            'appointment_time' => 'required',
+        ]);
 
-    Appointment::create($request->all());
+        $data = $request->all();
 
-    return redirect()->route('appointments.index')
-                     ->with('success', 'Appointment created successfully.');
-    }
+        // Auto generate Appointment Number if empty
+        if (empty($data['appointment_no'])) {
+            $data['appointment_no'] = 'APT' . date('YmdHis');
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Appointment $appointment)
-    {
-        //
-    }
-    public function doctor()
-    {
-        return $this->belongsTo(Doctor::class);
+        $data['status'] = $request->status ?? 'Scheduled';
+
+        Appointment::create($data);
+
+        return redirect()->route('appointments.index')
+                         ->with('success', 'Appointment created successfully.');
     }
 
     /**
@@ -78,7 +83,12 @@ class AppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
-        return view('admin.appointments.edit', compact('appointment'));
+        $departments = Department::where('status', 1)->get();
+        $specialists = Specialist::where('status', 1)->get();
+        $doctors     = User::whereNotNull('department_id')->get();
+        $patients    = Patient::latest()->get();
+
+        return view('admin.appointments.edit', compact('appointment', 'departments', 'specialists', 'doctors', 'patients'));
     }
 
     /**
@@ -86,14 +96,30 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, Appointment $appointment)
     {
-        //
+        $request->validate([
+            'patient_name'     => 'required|string|max:255',
+            'mobile_number'    => 'required|digits:10',
+            'department_id'    => 'required',
+            'doctor_id'        => 'required',
+            'appointment_date' => 'required|date',
+            'appointment_time' => 'required',
+        ]);
+
+        $appointment->update($request->all());
+
+        return redirect()->route('appointments.index')
+                         ->with('success', 'Appointment updated successfully.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage (Soft Delete).
      */
     public function destroy(Appointment $appointment)
     {
-        //
+        // Executes Soft Delete (updates deleted_at timestamp)
+        $appointment->delete();
+
+        return redirect()->route('appointments.index')
+                         ->with('success', 'Appointment deleted successfully.');
     }
 }
