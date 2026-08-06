@@ -19,11 +19,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        // Added 'specialist' relationship in eager loading
         $users = User::with(['roles', 'department', 'specialist'])
-                     ->where('status', 1)
-                     ->latest()
-                     ->paginate(10);
+                    ->latest()
+                    ->paginate(10);
 
         return view('admin.user.index', compact('users'));
     }
@@ -184,9 +182,12 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->update([
-            'status' => 0
+            'status' => 0,
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        $user->delete();
+
+        return redirect()->route('users.index')
+                        ->with('success', 'User deleted successfully.');
     }
 }
