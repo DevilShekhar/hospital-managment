@@ -77,7 +77,7 @@
                     {{-- Mobile --}}
                     <div class="col-md-4 mb-3">
                         <label for="mobile">Mobile <span class="text-danger">*</span></label>
-                        <input type="text" 
+                        <input type="number" 
                                id="mobile" 
                                name="mobile" 
                                class="form-control @error('mobile') is-invalid @enderror" 
@@ -170,27 +170,38 @@
                         @enderror
                     </div>
 
-                    {{-- Password --}}
+                   {{-- Password --}}
                     <div class="col-md-6 mb-3">
                         <label for="password">Password <span class="text-danger">*</span></label>
-                        <input type="password" 
-                               id="password" 
-                               name="password" 
-                               class="form-control @error('password') is-invalid @enderror" 
-                               required>
+                        <div class="input-group">
+                            <input type="password"
+                                id="password"
+                                name="password"
+                                autocomplete="new-password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                required>
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
                         @error('password')
-                            <span class="invalid-feedback">{{ $message }}</span>
+                            <span class="invalid-feedback d-block">{{ $message }}</span>
                         @enderror
                     </div>
 
                     {{-- Confirm Password --}}
                     <div class="col-md-6 mb-3">
                         <label for="password_confirmation">Confirm Password <span class="text-danger">*</span></label>
-                        <input type="password" 
-                               id="password_confirmation" 
-                               name="password_confirmation" 
-                               class="form-control" 
-                               required>
+                        <div class="input-group">
+                            <input type="password"
+                                id="password_confirmation"
+                                name="password_confirmation"
+                                class="form-control"
+                                required>
+                            <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
 
                     {{-- Profile Photo --}}
@@ -287,5 +298,40 @@
             handleRoleChange(roleSelect);
         }
     });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const password = document.getElementById('password');
+        const icon = this.querySelector('i');
+
+        if (password.type === 'password') {
+            password.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            password.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    });
+
+    document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
+        const password = document.getElementById('password_confirmation');
+        const icon = this.querySelector('i');
+
+        if (password.type === 'password') {
+            password.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            password.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    });
+
+});
 </script>
 @endsection
