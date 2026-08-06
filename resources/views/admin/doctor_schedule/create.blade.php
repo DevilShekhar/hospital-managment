@@ -1,246 +1,243 @@
 @extends('admin.layouts.app')
 
 @section('content')
-
-<div class="container-fluid">
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title">Create Doctor Schedule</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('doctor-schedules.index') }}">Doctor Schedules</a></li>
+                <li class="breadcrumb-item active">Create Schedule</li>
+            </ol>
+        </nav>
+    </div>
 
     <div class="card">
-
-        <div class="card-header d-flex justify-content-between">
-
-            <h4>Create Doctor Schedule</h4>
-
-            <a href="{{ route('doctor-schedules.index') }}" class="btn btn-secondary">
-                Back
-            </a>
-
-        </div>
-
         <div class="card-body">
 
-            <form action="{{ route('doctor-schedules.store') }}" method="POST">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="card-title">New Doctor Schedule Details</h4>
+                <a href="{{ route('doctor-schedules.index') }}" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
+            </div>
 
+            @if(session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+
+            <form action="{{ route('doctor-schedules.store') }}" method="POST">
                 @csrf
 
                 <div class="row">
 
-                    <!-- Doctor -->
+                    <!-- Doctor Select -->
                     <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-                            Doctor
-                            <span class="text-danger">*</span>
-                        </label>
-
-                        <select name="doctor_id" class="form-control" required>
-
+                        <label class="form-label">Doctor <span class="text-danger">*</span></label>
+                        <select name="doctor_id" id="doctor_id" class="form-control @error('doctor_id') is-invalid @enderror" required>
                             <option value="">Select Doctor</option>
-
                             @foreach($doctors as $doctor)
-
-                                <option value="{{ $doctor->id }}">
-
-                                    Dr.
-                                    {{ $doctor->first_name }}
-                                    {{ $doctor->last_name }}
-
+                                @php
+                                    $docName = $doctor->first_name ? ($doctor->first_name . ' ' . ($doctor->last_name ?? '')) : ($doctor->name ?? 'Doctor');
+                                @endphp
+                                <option value="{{ $doctor->id }}"
+                                        data-department="{{ $doctor->department_id }}"
+                                        {{ old('doctor_id') == $doctor->id ? 'selected' : '' }}>
+                                    Dr. {{ $docName }}
                                 </option>
-
                             @endforeach
-
                         </select>
-
+                        @error('doctor_id')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
-                    <!-- Department -->
+                    <!-- Department Select -->
                     <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-                            Department
-                        </label>
-
-                        <select name="department_id" class="form-control">
-
+                        <label class="form-label">Department <span class="text-danger">*</span></label>
+                        <select name="department_id" id="department_id" class="form-control @error('department_id') is-invalid @enderror" required>
                             <option value="">Select Department</option>
-
                             @foreach($departments as $department)
-
-                                <option value="{{ $department->id }}">
-
-                                    {{ $department->name }}
-
+                                <option value="{{ $department->id }}" {{ old('department_id') == $department->id ? 'selected' : '' }}>
+                                    {{ $department->name ?? $department->department_name }}
                                 </option>
-
                             @endforeach
-
                         </select>
-
+                        @error('department_id')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <!-- Schedule Date -->
                     <div class="col-md-6 mb-3">
-
-                        <label>Schedule Date</label>
-
-                        <input
-                            type="date"
-                            name="schedule_date"
-                            class="form-control"
-                            required>
-
+                        <label class="form-label">Schedule Date <span class="text-danger">*</span></label>
+                        <input type="date"
+                               name="schedule_date"
+                               id="schedule_date"
+                               class="form-control @error('schedule_date') is-invalid @enderror"
+                               value="{{ old('schedule_date', date('Y-m-d')) }}"
+                               required>
+                        @error('schedule_date')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
-                    <!-- Day -->
+                    <!-- Day of Week -->
                     <div class="col-md-6 mb-3">
-
-                        <label>Day</label>
-
-                        <select
-                            name="day_of_week"
-                            class="form-control">
-
-                            <option>Monday</option>
-                            <option>Tuesday</option>
-                            <option>Wednesday</option>
-                            <option>Thursday</option>
-                            <option>Friday</option>
-                            <option>Saturday</option>
-                            <option>Sunday</option>
-
+                        <label class="form-label">Day <span class="text-danger">*</span></label>
+                        <select name="day_of_week" id="day_of_week" class="form-control @error('day_of_week') is-invalid @enderror" required>
+                            @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as $day)
+                                <option value="{{ $day }}" {{ old('day_of_week', date('l')) == $day ? 'selected' : '' }}>
+                                    {{ $day }}
+                                </option>
+                            @endforeach
                         </select>
-
+                        @error('day_of_week')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <!-- Start Time -->
                     <div class="col-md-6 mb-3">
-
-                        <label>Start Time</label>
-
-                        <input
-                            type="time"
-                            name="start_time"
-                            class="form-control">
-
+                        <label class="form-label">Start Time <span class="text-danger">*</span></label>
+                        <input type="time"
+                               name="start_time"
+                               class="form-control @error('start_time') is-invalid @enderror"
+                               value="{{ old('start_time', '09:00') }}"
+                               required>
+                        @error('start_time')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <!-- End Time -->
                     <div class="col-md-6 mb-3">
-
-                        <label>End Time</label>
-
-                        <input
-                            type="time"
-                            name="end_time"
-                            class="form-control">
-
+                        <label class="form-label">End Time <span class="text-danger">*</span></label>
+                        <input type="time"
+                               name="end_time"
+                               class="form-control @error('end_time') is-invalid @enderror"
+                               value="{{ old('end_time', '17:00') }}"
+                               required>
+                        @error('end_time')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
-                    <!-- Time Per Patient -->
+                    <!-- Slot Duration -->
                     <div class="col-md-6 mb-3">
-
-                        <label>Time Per Patient</label>
-
-                        <select
-                            name="slot_duration"
-                            class="form-control">
-
-                            <option value="10">10 Minutes</option>
-                            <option value="15">15 Minutes</option>
-                            <option value="20">20 Minutes</option>
-                            <option value="30">30 Minutes</option>
-
+                        <label class="form-label">Slot Duration (Minutes)</label>
+                        <select name="slot_duration" class="form-control">
+                            <option value="10" {{ old('slot_duration') == 10 ? 'selected' : '' }}>10 Minutes</option>
+                            <option value="15" {{ old('slot_duration', 15) == 15 ? 'selected' : '' }}>15 Minutes</option>
+                            <option value="20" {{ old('slot_duration') == 20 ? 'selected' : '' }}>20 Minutes</option>
+                            <option value="30" {{ old('slot_duration') == 30 ? 'selected' : '' }}>30 Minutes</option>
                         </select>
-
                     </div>
 
-                    <!-- Maximum Patients -->
+                    <!-- Max Patients -->
                     <div class="col-md-6 mb-3">
-
-                        <label>Maximum Patients</label>
-
-                        <input
-                            type="number"
-                            name="max_patients"
-                            class="form-control">
-
+                        <label class="form-label">Maximum Patients</label>
+                        <input type="number"
+                               name="max_patients"
+                               class="form-control"
+                               value="{{ old('max_patients', 20) }}"
+                               min="1">
                     </div>
 
-                    <!-- Room -->
+                    <!-- Room Number -->
                     <div class="col-md-6 mb-3">
-
-                        <label>Room Number</label>
-
-                        <input
-                            type="text"
-                            name="room_no"
-                            class="form-control">
-
+                        <label class="form-label">Room Number</label>
+                        <input type="text"
+                               name="room_no"
+                               class="form-control"
+                               value="{{ old('room_no') }}"
+                               placeholder="e.g. Room 101">
                     </div>
 
-                    <!-- Fee -->
+                    <!-- Consultation Fee -->
                     <div class="col-md-6 mb-3">
-
-                        <label>Consultation Fee</label>
-
-                        <input
-                            type="number"
-                            name="consultation_fee"
-                            class="form-control">
-
+                        <label class="form-label">Consultation Fee (₹)</label>
+                        <input type="number"
+                               step="0.01"
+                               name="consultation_fee"
+                               class="form-control"
+                               value="{{ old('consultation_fee') }}"
+                               placeholder="e.g. 500">
                     </div>
 
-                    <!-- Availability -->
+                    <!-- Availability Status -->
                     <div class="col-md-6 mb-3">
-
-                        <label>Availability</label>
-
-                        <select
-                            name="is_available"
-                            class="form-control">
-
-                            <option value="1">Available</option>
-                            <option value="0">Not Available</option>
-
+                        <label class="form-label">Availability</label>
+                        <select name="is_available" class="form-control">
+                            <option value="1" {{ old('is_available', 1) == 1 ? 'selected' : '' }}>Available</option>
+                            <option value="0" {{ old('is_available') === '0' ? 'selected' : '' }}>Not Available</option>
                         </select>
-
                     </div>
 
                     <!-- Remarks -->
                     <div class="col-md-6 mb-3">
-
-                        <label>Remarks</label>
-
-                        <textarea
-                            name="remarks"
-                            rows="3"
-                            class="form-control"></textarea>
-
+                        <label class="form-label">Remarks</label>
+                        <textarea name="remarks" rows="2" class="form-control" placeholder="Optional notes">{{ old('remarks') }}</textarea>
                     </div>
 
                 </div>
 
-                <div class="text-end">
-
-                    <button
-                        type="reset"
-                        class="btn btn-warning">
-                        Reset
+                <div class="mt-3">
+                    <button type="reset" class="btn btn-warning">Reset</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save mr-1"></i> Save Schedule
                     </button>
-
-                    <button
-                        type="submit"
-                        class="btn btn-primary">
-                        Save Schedule
-                    </button>
-
                 </div>
 
             </form>
 
         </div>
-
     </div>
-
 </div>
-
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+
+    // Function to calculate and update Day based on Date
+    function autoSelectDay(dateString) {
+        if (!dateString) return;
+
+        // Split YYYY-MM-DD to avoid UTC timezone offset issues
+        var parts = dateString.split('-');
+        if (parts.length === 3) {
+            var year = parseInt(parts[0], 10);
+            var month = parseInt(parts[1], 10) - 1; // Months are 0-indexed in JS
+            var day = parseInt(parts[2], 10);
+
+            var localDate = new Date(year, month, day);
+            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            var dayName = days[localDate.getDay()];
+
+            // Set the calculated day in dropdown
+            $('#day_of_week').val(dayName);
+        }
+    }
+
+    // 1. Trigger when user changes the schedule date
+    $('#schedule_date').on('change', function() {
+        autoSelectDay($(this).val());
+    });
+
+    // 2. Trigger on page load if date is already pre-filled
+    if ($('#schedule_date').val()) {
+        autoSelectDay($('#schedule_date').val());
+    }
+
+    // Auto-select Department when Doctor is chosen
+    $('#doctor_id').on('change', function() {
+        var selectedOption = $(this).find('option:selected');
+        var doctorDept = selectedOption.data('department');
+        if (doctorDept) {
+            $('#department_id').val(doctorDept);
+        }
+    });
+
+});
+</script>

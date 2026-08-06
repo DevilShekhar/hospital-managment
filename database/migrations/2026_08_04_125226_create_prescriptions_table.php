@@ -9,58 +9,30 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-     public function up()
+    public function up(): void
     {
-        Schema::table('prescriptions', function (Blueprint $table) {
+        // 💡 Schema::table ऐवजी Schema::create वापरणे गरजेचे आहे
+        Schema::create('prescriptions', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('patient_id');
+            $table->unsignedBigInteger('doctor_id')->nullable();
+            $table->unsignedBigInteger('appointment_id')->nullable();
+            $table->date('prescription_date')->nullable();
+            $table->text('diagnosis')->nullable();
+            $table->text('notes')->nullable();
+            $table->string('status')->default('Active');
+            $table->timestamps();
 
-            $table->foreignId('patient_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
-            $table->foreignId('doctor_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
-            $table->foreignId('medical_record_id')
-                ->nullable()
-                ->constrained()
-                ->nullOnDelete();
-
-            $table->string('medicine');
-
-            $table->string('dosage')->nullable();
-
-            $table->string('duration')->nullable();
-
-            $table->text('instructions')->nullable();
-
-            $table->boolean('status')->default(1);
-
+            // Foreign Key Relationships (Optional but recommended)
+            // $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
         });
     }
 
-
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
-        Schema::table('prescriptions', function (Blueprint $table) {
-
-            $table->dropForeign(['patient_id']);
-            $table->dropForeign(['doctor_id']);
-            $table->dropForeign(['medical_record_id']);
-
-            $table->dropColumn([
-                'patient_id',
-                'doctor_id',
-                'medical_record_id',
-                'medicine',
-                'dosage',
-                'duration',
-                'instructions',
-                'status'
-            ]);
-
-        });
+        Schema::dropIfExists('prescriptions');
     }
-
-   
 };
