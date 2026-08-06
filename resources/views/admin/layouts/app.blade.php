@@ -618,6 +618,7 @@
           </li>
           <li class="nav-item">
 
+
           <a class="nav-link" data-toggle="collapse" href="#laboratoryManagement"
               aria-expanded="false" aria-controls="laboratoryManagement">
               <i class="fas fa-flask menu-icon"></i>
@@ -641,7 +642,6 @@
         </ul>
     </div>
 </li>
-
 
             <a class="nav-link" href="pages/ui-features/popups.html">
               <i class="fas fa-minus-square menu-icon"></i>
