@@ -20,6 +20,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with(['roles', 'department', 'specialist'])
+                    ->where('status', 1)
                     ->latest()
                     ->paginate(10);
 
@@ -48,7 +49,7 @@ class UserController extends Controller
             'last_name'     => 'required|string|max:255',
             'employee_id'   => 'required|string|max:100|unique:users,employee_id',
             'email'         => 'required|email|max:255|unique:users,email',
-            'mobile'        => 'required|string|max:20',
+            'mobile'        => 'required|regex:/^[0-9]+$/|max:20',
             'gender'        => 'nullable|string|in:Male,Female,Other',
             'dob'           => 'nullable|date',
             'department_id' => 'required|exists:departments,id',
@@ -131,7 +132,7 @@ class UserController extends Controller
             'last_name'     => 'required|string|max:255',
             'employee_id'   => 'required|string|max:100|unique:users,employee_id,' . $user->id,
             'email'         => 'required|email|max:255|unique:users,email,' . $user->id,
-            'mobile'        => 'required|string|max:20',
+            'mobile'        => 'required|regex:/^[0-9]+$/|max:20',
             'gender'        => 'nullable|string|in:Male,Female,Other',
             'dob'           => 'nullable|date',
             'department_id' => 'required|exists:departments,id',
@@ -176,7 +177,9 @@ class UserController extends Controller
         // Sync Roles
         $user->syncRoles([$request->role]);
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        $redirectRoute = $user->hasRole('Doctor') ? 'doctors.index' : 'users.index';
+
+        return redirect()->route($redirectRoute)->with('success', 'User updated successfully.');
     }
 
     public function destroy(User $user)
@@ -187,7 +190,9 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->route('users.index')
+        $redirectRoute = $user->hasRole('Doctor') ? 'doctors.index' : 'users.index';
+
+        return redirect()->route($redirectRoute)
                         ->with('success', 'User deleted successfully.');
     }
 }

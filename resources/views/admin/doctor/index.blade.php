@@ -5,12 +5,6 @@
         {{-- Page Header --}}
         <div class="page-header">
             <h3 class="page-title">Doctor Management</h3>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Doctor List</li>
-                </ol>
-            </nav>
         </div>
 
         {{-- Main Card --}}
@@ -31,15 +25,15 @@
                         <thead>
                             <tr>
                                 <th width="50">#</th>
-                                <th>Doctor ID</th>
-                                <th>Name</th>
-                                <th>Department</th>
-                                <th>Specialization</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Fee</th>
-                                <th width="100">Status</th>
-                                <th width="140">Actions</th>
+                                <th data-orderable="false">Doctor ID</th>
+                                <th data-orderable="false">Name</th>
+                                <th data-orderable="false">Department</th>
+                                <th data-orderable="false">Specialization</th>
+                                <th data-orderable="false">Email</th>
+                                <th data-orderable="false">Phone</th>
+                                <th data-orderable="false">Fee</th>
+                                <th width="100" data-orderable="false">Status</th>
+                                <th width="140" data-orderable="false">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,7 +51,7 @@
                                     {{-- Specialist Relationship Dynamic Output --}}
                                     <td>
                                         @if(isset($doctor->specialist))
-                                            <span class="badge bg-soft-info text-info">
+                                            <span class="text-body">
                                                 {{ $doctor->specialist->name }}
                                             </span>
                                         @else
@@ -70,33 +64,29 @@
                                     <td>{{ $doctor->consultation_fee ? '$' . $doctor->consultation_fee : 'N/A' }}</td>
                                     <td>
                                         @if($doctor->status == '1' || $doctor->status == 1 || strtolower((string)$doctor->status) == 'active')
-                                            <span class="status-pill status-active">
-                                                <span class="dot"></span> Active
-                                            </span>
+                                            <span class="badge badge-success">Active</span>
                                         @else
-                                            <span class="status-pill status-inactive">
-                                                <span class="dot"></span> Inactive
-                                            </span>
+                                            <span class="badge badge-danger">Inactive</span>
                                         @endif
                                     </td>
                                     <td>
                                         <div class="d-flex gap-1">
                                             {{-- Show Button --}}
-                                            <a href="{{ route('users.show', $doctor->id) }}"
+                                            <a href="{{ route('doctors.show', $doctor->id) }}"
                                                class="btn btn-sm btn-info"
                                                title="View">
                                                 <i class="fas fa-eye"></i>
                                             </a>
 
                                             {{-- Edit Button --}}
-                                            <a href="{{ route('users.edit', $doctor->id) }}"
+                                            <a href="{{ route('doctors.edit', $doctor->id) }}"
                                                class="btn btn-sm btn-warning"
                                                title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
 
                                             {{-- SweetAlert Delete Form --}}
-                                            <form action="{{ route('users.destroy', $doctor->id) }}" method="POST"
+                                            <form action="{{ route('doctors.destroy', $doctor->id) }}" method="POST"
                                                   id="delete-form-{{ $doctor->id }}" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')

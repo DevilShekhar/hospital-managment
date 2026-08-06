@@ -74,9 +74,11 @@
                     {{-- Mobile --}}
                     <div class="col-md-4 mb-3">
                         <label for="mobile">Mobile <span class="text-danger">*</span></label>
-                        <input type="text" 
+                        <input type="tel" 
                                id="mobile" 
                                name="mobile" 
+                               inputmode="numeric"
+                               pattern="[0-9]*"
                                class="form-control @error('mobile') is-invalid @enderror" 
                                value="{{ old('mobile', $user->mobile) }}" 
                                required>
