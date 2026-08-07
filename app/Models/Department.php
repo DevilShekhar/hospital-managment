@@ -15,6 +15,9 @@ class Department extends Model
         'status',
         'deleted_at',
     ];
+    protected $casts = [
+    'deleted_at' => 'datetime',
+    ];
     public function doctors()
 {
     return $this->hasMany(Doctor::class);

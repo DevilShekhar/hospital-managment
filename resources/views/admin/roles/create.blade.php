@@ -44,6 +44,13 @@
                         @enderror
                     </div>
                 </div>
+                <div class="col-md-6 mb-3">
+                    <label>Status <span class="text-danger">*</span></label>
+                    <select name="status" class="form-control">
+                        <option value="1" {{ old('status', 1) == 1 ? 'selected' : '' }}>Active</option>
+                        <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Inactive</option>
+                    </select>
+                </div>
 
                 <div class="mt-4 border-top pt-3 text-end">
                     <a href="{{ route('roles.index') }}" class="btn btn-light me-2">Cancel</a>

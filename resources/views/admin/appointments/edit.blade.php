@@ -169,13 +169,16 @@
 
                     <!-- Status Selection -->
                     <div class="col-md-4 mb-3">
-                        <label class="form-label">Status <span class="text-danger">*</span></label>
-                        <select class="form-control" name="status" required>
-                            <option value="Scheduled" {{ old('status', $appointment->status) == 'Scheduled' ? 'selected' : '' }}>Scheduled</option>
-                            <option value="Confirmed" {{ old('status', $appointment->status) == 'Confirmed' ? 'selected' : '' }}>Confirmed</option>
-                            <option value="Completed" {{ old('status', $appointment->status) == 'Completed' ? 'selected' : '' }}>Completed</option>
-                            <option value="Cancelled" {{ old('status', $appointment->status) == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
+                        <label class="form-label">
+                            Appointment Status <span class="text-danger">*</span>
+                        </label>
+                        <select class="form-control" name="status">
+                            <option value="Scheduled" {{ $appointment->status == 'Scheduled' ? 'selected' : '' }}>Scheduled</option>
+                            <option value="Confirmed" {{ $appointment->status == 'Confirmed' ? 'selected' : '' }}>Confirmed</option>
+                            <option value="Completed" {{ $appointment->status == 'Completed' ? 'selected' : '' }}>Completed</option>
+                            <option value="Cancelled" {{ $appointment->status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
                         </select>
+
                     </div>
 
                     <!-- Visit Type -->
@@ -199,7 +202,17 @@
                             <option value="Urgent" {{ old('priority', $appointment->priority) == 'Urgent' ? 'selected' : '' }}>Urgent</option>
                         </select>
                     </div>
+                    <div class="col-md-4 mb-3">
 
+                        <label class="form-label">
+                            Record Status <span class="text-danger">*</span>
+                        </label>
+                        <select class="form-control" name="is_active">
+                            <option value="1" {{ $appointment->is_active == 1 ? 'selected' : '' }}>Active</option>
+                            <option value="0" {{ $appointment->is_active == 0 ? 'selected' : '' }}>Inactive</option>
+                        </select>
+
+                    </div>
                     <!-- Reason -->
                     <div class="col-md-12 mb-3">
                         <label class="form-label">Reason for Visit</label>
