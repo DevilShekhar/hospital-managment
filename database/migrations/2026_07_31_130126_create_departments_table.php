@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->boolean('status')->default(1); // 1 = Active, 0 = Inactive
             $table->timestamps();
         });
     }

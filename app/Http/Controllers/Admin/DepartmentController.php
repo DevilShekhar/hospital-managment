@@ -10,8 +10,9 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        // Status 1 aslele active departments fetch hotiil (0 wale hide hotiil)
-        $departments = Department::where('status', 1)->latest()->get();
+        $departments = Department::whereNull('deleted_at')
+            ->latest()
+            ->get();
 
         return view('admin.departments.index', compact('departments'));
     }
@@ -21,24 +22,21 @@ class DepartmentController extends Controller
         return view('admin.departments.create');
     }
 
-    public function store(Request $request)
+   public function store(Request $request)
     {
         $request->validate([
             'name'        => 'required|string|max:255|unique:departments,name',
             'description' => 'nullable|string',
-            'status'      => 'nullable',
         ]);
-
-        // Form madhun 'active', '1', kiwa true aala tar 1 hoil, nahi tar 0
-        $statusValue = in_array($request->status, ['active', '1', 1, true], true) ? 1 : 0;
 
         Department::create([
             'name'        => $request->name,
             'description' => $request->description,
-            'status'      => $statusValue,
+            'status'      => 1, // Default Active
         ]);
 
-        return redirect()->route('departments.index')->with('success', 'Department created successfully.');
+        return redirect()->route('departments.index')
+            ->with('success', 'Department created successfully.');
     }
 
     public function edit(Department $department)
@@ -69,9 +67,11 @@ class DepartmentController extends Controller
     public function destroy(Department $department)
     {
         $department->update([
-            'status' => 0, // Soft delete by setting status to 0 (inactive)
+            'status' => 0,
+            'deleted_at' => now(),
         ]);
 
-        return redirect()->route('departments.index')->with('success', 'Department deleted successfully.');
+        return redirect()->route('departments.index')
+            ->with('success', 'Department deleted successfully.');
     }
 }

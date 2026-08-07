@@ -4,12 +4,6 @@
 <div class="content-wrapper">
     <div class="page-header">
         <h3 class="page-title">Department Management</h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('departments.index') }}">Department Management</a></li>
-                <li class="breadcrumb-item active">Add Department</li>
-            </ol>
-        </nav>
     </div>
 
     <div class="card">
@@ -32,14 +26,7 @@
                     @error('description') <span class="text-danger small">{{ $message }}</span> @enderror
                 </div>
 
-                <div class="form-group">
-    <label for="status">Status</label>
-    <select name="status" class="form-control" id="status" required>
-        <option value="1" {{ old('status', '1') == '1' ? 'selected' : '' }}>Active</option>
-        <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
-    </select>
-    @error('status') <span class="text-danger small">{{ $message }}</span> @enderror
-</div>
+        
 
                 <button type="submit" class="btn btn-primary mr-2">Save Department</button>
                 
