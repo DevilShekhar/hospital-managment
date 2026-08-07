@@ -109,6 +109,7 @@ class PatientController extends Controller
             'relation'                => 'nullable|string',
             'medical_history'         => 'nullable|string',
             'allergies'               => 'nullable|string',
+            'status'                  => 'required|boolean',
         ]);
 
         $patient->update($request->all());
@@ -120,9 +121,13 @@ class PatientController extends Controller
     public function destroy($id)
     {
         $patient = Patient::findOrFail($id);
-        $patient->delete();
+
+        $patient->update([
+            'status' => 0,
+            'deleted_at' => now(),
+        ]);
 
         return redirect()->route('patients.index')
-                        ->with('success', 'Patient deleted successfully.');
+            ->with('success', 'Patient marked as inactive successfully.');
     }
 }

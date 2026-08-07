@@ -847,8 +847,9 @@
   </script>
 
   {{-- Auto-trigger SweetAlert for Success Flash Messages --}}
-  @if(session('success'))
+
     <script>
+       @if(session('success'))
       document.addEventListener('DOMContentLoaded', function () {
         if (typeof Swal !== 'undefined') {
           Swal.fire({

@@ -20,7 +20,16 @@
                         <i class="fa fa-arrow-left"></i> Back
                     </a>
                 </div>
-
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <strong>Please fix the following errors:</strong>
+                        <ul class="mb-0 mt-2">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form action="{{ route('patients.update', $patient->id) }}" method="POST">
                     @csrf
                     @method('PUT')
@@ -127,14 +136,43 @@
                                    class="form-control"
                                    value="{{ old('blood_group', $patient->blood_group) }}">
                         </div>
+                        
+
+                        
+                        <!-- Emergency Contact Name -->
+                        <div class="col-md-6 mb-3">
+                            <label>Emergency Contact Name <span class="text-danger">*</span></label>
+                            <input type="text"
+                                name="emergency_contact_name"
+                                class="form-control"
+                                value="{{ old('emergency_contact_name', $patient->emergency_contact_name) }}">
+                        </div>
+
+                        <!-- Emergency Contact Phone -->
+                        <div class="col-md-6 mb-3">
+                            <label>Emergency Contact Phone <span class="text-danger">*</span></label>
+                            <input type="text"
+                                name="emergency_contact_phone"
+                                class="form-control"
+                                value="{{ old('emergency_contact_phone', $patient->emergency_contact_phone) }}">
+                        </div>
 
                         <!-- City -->
                         <div class="col-md-6 mb-3">
                             <label>City</label>
                             <input type="text"
-                                   name="city"
-                                   class="form-control"
-                                   value="{{ old('city', $patient->city) }}">
+                                name="city"
+                                class="form-control"
+                                value="{{ old('city', $patient->city) }}">
+                        </div>
+
+                        <!-- Status -->
+                        <div class="col-md-6 mb-3">
+                            <label>Status <span class="text-danger">*</span></label>
+                            <select name="status" class="form-control">
+                                <option value="1" {{ old('status', $patient->status) == 1 ? 'selected' : '' }}>Active</option>
+                                <option value="0" {{ old('status', $patient->status) == 0 ? 'selected' : '' }}>Inactive</option>
+                            </select>
                         </div>
 
                         <!-- Address -->

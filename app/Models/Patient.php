@@ -31,6 +31,8 @@ class Patient extends Model
         'relation',
         'medical_history',
         'allergies',
+        'status',
+        'deleted_at',
     ];
     public function doctor()
     {
