@@ -26,7 +26,7 @@ return new class extends Migration
             $table->text('reason')->nullable()->after('priority');
             $table->text('notes')->nullable()->after('reason');
             $table->string('status')->default('Scheduled')->after('notes');
-            $table->softDeletes()->after('status'); // 👈 Soft Delete Support (deleted_at)
+            $table->softDeletes(); // 👈 Soft Delete Support (deleted_at)
         });
     }
 

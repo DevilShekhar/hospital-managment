@@ -8,14 +8,12 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-    public function index()
-    {
-        $departments = Department::whereNull('deleted_at')
-            ->latest()
-            ->get();
+   public function index()
+{
+    $departments = Department::latest()->paginate(10);
 
-        return view('admin.departments.index', compact('departments'));
-    }
+    return view('admin.departments.index', compact('departments'));
+}
 
     public function create()
     {
@@ -27,12 +25,13 @@ class DepartmentController extends Controller
         $request->validate([
             'name'        => 'required|string|max:255|unique:departments,name',
             'description' => 'nullable|string',
+            'status'      => 'required'
         ]);
 
         Department::create([
             'name'        => $request->name,
             'description' => $request->description,
-            'status'      => 1, // Default Active
+            'status'      => $request->status // Default Active
         ]);
 
         return redirect()->route('departments.index')

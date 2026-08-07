@@ -75,22 +75,18 @@
                                             </a>
 
                                             {{-- Delete Form --}}
-                                            <form action="{{ route('specialists.destroy', $specialist->id) }}"
-                                                  method="POST"
-                                                  id="delete-form-{{ $specialist->id }}"
-                                                  class="d-inline">
+                                           @if($specialist->status == 1)
 
-                                                @csrf
-                                                @method('DELETE')
+                                                <form action="{{ route('specialists.destroy',$specialist->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
 
-                                                <button type="button"
-                                                        class="btn btn-sm btn-danger"
-                                                        title="Delete"
-                                                        onclick="confirmDelete({{ $specialist->id }})">
-                                                    <i class="fa fa-trash"></i> Delete
-                                                </button>
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        Delete
+                                                    </button>
 
-                                            </form>
+                                                </form>
+                                            @endif
                                         </div>
                                     </td>
 

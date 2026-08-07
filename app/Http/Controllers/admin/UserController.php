@@ -17,15 +17,15 @@ class UserController extends Controller
     /**
      * Display a listing of ACTIVE users (status = 1).
      */
-    public function index()
+   public function index()
     {
-        $users = User::with(['roles', 'department', 'specialist'])
-                    ->where('status', 1)
-                    ->latest()
-                    ->paginate(10);
+        $users = User::withTrashed()
+            ->with(['roles', 'department', 'specialist'])
+            ->latest()
+            ->paginate(10);
 
         return view('admin.user.index', compact('users'));
-    }
+}
 
     /**
      * Show the form for creating a new user.
@@ -105,18 +105,20 @@ class UserController extends Controller
         }
     }
 
-    public function show(User $user)
+   public function show($id)
     {
-        // Added 'specialist' relationship
+        $user = User::withTrashed()->findOrFail($id);
         $user->load(['department', 'roles', 'specialist']);
         return view('admin.user.show', compact('user'));
     }
 
-    public function edit(User $user)
+    
+    public function edit($id)
     {
+        $user = User::withTrashed()->findOrFail($id);
         $departments = Department::all();
         $roles = Role::pluck('name', 'name')->all();
-        $specialists = Specialist::where('status', 1)->get(); // Passed specialists to edit view
+        $specialists = Specialist::where('status', 1)->get();
         $userRole = $user->roles->pluck('name', 'name')->first();
 
         return view('admin.user.edit', compact('user', 'departments', 'roles', 'userRole', 'specialists'));
@@ -125,8 +127,10 @@ class UserController extends Controller
     /**
      * Update the specified user in database.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
+        $user = User::withTrashed()->findOrFail($id);
+
         $request->validate([
             'first_name'    => 'required|string|max:255',
             'last_name'     => 'required|string|max:255',
@@ -164,7 +168,6 @@ class UserController extends Controller
             'pincode'       => $request->pincode,
         ];
 
-        // Handle Photo Upload & Delete Old Image
         if ($request->hasFile('photo')) {
             if ($user->photo && Storage::disk('public')->exists($user->photo)) {
                 Storage::disk('public')->delete($user->photo);
@@ -174,25 +177,30 @@ class UserController extends Controller
 
         $user->update($data);
 
-        // Sync Roles
+        if ($request->status == 1 && $user->trashed()) {
+            $user->restore();
+        }
+        if ($request->status == 0 && !$user->trashed()) {
+            $user->delete();
+        }
+
         $user->syncRoles([$request->role]);
 
-        $redirectRoute = $user->hasRole('Doctor') ? 'doctors.index' : 'users.index';
-
-        return redirect()->route($redirectRoute)->with('success', 'User updated successfully.');
+        return redirect()->route(
+            $user->hasRole('Doctor') ? 'doctors.index' : 'users.index'
+        )->with('success', 'User updated successfully.');
     }
 
     public function destroy(User $user)
     {
-        $user->update([
-            'status' => 0,
-        ]);
+        $user->status = 0;
+        $user->save();
 
         $user->delete();
 
         $redirectRoute = $user->hasRole('Doctor') ? 'doctors.index' : 'users.index';
 
         return redirect()->route($redirectRoute)
-                        ->with('success', 'User deleted successfully.');
+            ->with('success', 'User deleted successfully.');
     }
 }

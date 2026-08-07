@@ -11,9 +11,8 @@ class RolesController extends Controller
     
     public function index()
     {
-        // Status 1 aslele roles dakhva (Status 0 wale hide hotiil)
-        $roles = Role::where('status', 1)->latest()->paginate(10);
-        
+        $roles = Role::latest()->paginate(10);
+
         return view('admin.roles.index', compact('roles'));
     }
 
@@ -25,13 +24,14 @@ class RolesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:roles,name',
+            'name'   => 'required|string|max:255|unique:roles,name',
+            'status' => 'required|boolean',
         ]);
 
         Role::create([
             'name'       => $request->name,
             'guard_name' => 'web',
-            'status'     => 1, 
+            'status'     => $request->status,
         ]);
 
         return redirect()->route('roles.index')->with('success', 'Role created successfully.');
@@ -45,11 +45,13 @@ class RolesController extends Controller
     public function update(Request $request, Role $role)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:roles,name,' . $role->id,
+            'name'   => 'required|string|max:255|unique:roles,name,' . $role->id,
+            'status' => 'required|boolean',
         ]);
 
         $role->update([
-            'name' => $request->name,
+            'name'   => $request->name,
+            'status' => $request->status,
         ]);
 
         return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
@@ -65,6 +67,6 @@ class RolesController extends Controller
             'status' => 0
         ]);
 
-        return redirect()->route('roles.index')->with('success', 'Role deleted successfully.');
+         return redirect()->route('roles.index')->with('success', 'Role marked as inactive successfully.');
     }
 }

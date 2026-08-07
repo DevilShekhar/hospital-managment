@@ -4,23 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Specialist extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'name',
-        'department_id', 
+        'department_id',
         'description',
-        'status'
+        'status',
+        'deleted_at'
     ];
     protected $casts = [
         'status' => 'integer',
+        'deleted_at' => 'datetime',
     ];
 
-
+    
     public function department()
     {
         return $this->belongsTo(Department::class, 'department_id');

@@ -86,17 +86,22 @@
                                             </a>
 
                                             {{-- SweetAlert Delete Form --}}
-                                            <form action="{{ route('doctors.destroy', $doctor->id) }}" method="POST"
-                                                  id="delete-form-{{ $doctor->id }}" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
+                                            @if($doctor->status == 1)
+                                                <form action="{{ route('doctors.destroy', $doctor->id) }}"
+                                                    method="POST"
+                                                    id="delete-form-{{ $doctor->id }}"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
 
-                                                <button type="button" class="btn btn-sm btn-danger"
-                                                        title="Delete"
-                                                        onclick="confirmDelete({{ $doctor->id }})">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-danger"
+                                                            title="Delete"
+                                                            onclick="confirmDelete({{ $doctor->id }})">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

@@ -25,6 +25,23 @@
                     <textarea name="description" class="form-control" id="description" rows="4" placeholder="Brief description of the department">{{ old('description') }}</textarea>
                     @error('description') <span class="text-danger small">{{ $message }}</span> @enderror
                 </div>
+                <div class="col-md-6 mb-3">
+
+                    <label for="status">
+                        Status <span class="text-danger">*</span>
+                    </label>
+
+                    <select name="status" id="status" class="form-control">
+                        <option value="1" selected>
+                            Active
+                        </option>
+
+                        <option value="0">
+                            Inactive
+                        </option>
+                    </select>
+
+                </div>
 
         
 

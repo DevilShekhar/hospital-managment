@@ -24,13 +24,16 @@
                     @error('description') <span class="text-danger small">{{ $message }}</span> @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <select name="status" class="form-control" id="status" required>
-                        <option value="1" {{ old('status', $department->status) == 1 ? 'selected' : '' }}>Active</option>
-                        <option value="0" {{ old('status', $department->status) == 0 ? 'selected' : '' }}>Inactive</option>
-                    </select>
-                </div>
+                <select name="status" class="form-control">
+                    <option value="1"
+                        @if($department->status == 1) selected @endif>
+                        Active
+                    </option>
+                    <option value="0"
+                        @if($department->status == 0) selected @endif>
+                        Inactive
+                    </option>
+                </select>
 
                 <button type="submit" class="btn btn-primary mr-2">Update Department</button>
                 <a href="{{ route('departments.index') }}" class="btn btn-light">Cancel</a>

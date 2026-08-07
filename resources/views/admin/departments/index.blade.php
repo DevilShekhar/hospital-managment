@@ -4,12 +4,6 @@
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">Department Management</h3>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Department Management</a></li>
-                    <li class="breadcrumb-item active">Department List</li>
-                </ol>
-            </nav>
         </div>
 
         <div class="card">
@@ -43,15 +37,19 @@
                                     <td>
                                         {{ Str::limit($department->description, 50) ?? 'N/A' }}
                                     </td>
-                                    <td>
-                                            @if($department->status == '1')
-                                            <span class="status-pill status-active">
-                                                <span class="dot"></span> Active
+                                   <td>
+                                        @if($department->status == 1)
+
+                                            <span class="badge badge-success">
+                                                Active
                                             </span>
+
                                         @else
-                                            <span class="status-pill status-inactive">
-                                                <span class="dot"></span> Inactive
+
+                                            <span class="badge badge-danger">
+                                                Inactive
                                             </span>
+
                                         @endif
                                     </td>
                                     <td>
@@ -62,16 +60,24 @@
                                             </a>
 
                                             {{-- SweetAlert2 Delete Form --}}
-                                            <form action="{{ route('departments.destroy', $department->id) }}" method="POST"
-                                                id="delete-form-{{ $department->id }}" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
+                                            @if($department->status == 1 && $department->deleted_at == null)
 
-                                                <button type="button" class="btn btn-sm btn-danger"
-                                                    onclick="confirmDelete({{ $department->id }})">
-                                                    <i class="fas fa-trash"></i> Delete
-                                                </button>
-                                            </form>
+                                                <a href="{{ route('departments.destroy',$department->id) }}"
+                                                onclick="event.preventDefault();
+                                                document.getElementById('delete-form-{{$department->id}}').submit();"
+                                                class="btn btn-danger btn-sm">
+                                                    Delete
+                                                </a>
+
+                                                <form id="delete-form-{{$department->id}}"
+                                                    action="{{ route('departments.destroy',$department->id) }}"
+                                                    method="POST"
+                                                    style="display:none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+
+                                                @endif
                                         </div>
                                     </td>
                                 </tr>
