@@ -21,12 +21,6 @@
                     </a>
                 </div>
 
-                @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
                 <div class="table-responsive">
 
                     <table class="table table-bordered table-hover">
@@ -42,6 +36,7 @@
                                 <th>Phone</th>
                                 <th>Blood Group</th>
                                 <th>City</th>
+                                <th>Status</th>
                                 <th width="180">Action</th>
                             </tr>
                         </thead>
@@ -78,31 +73,35 @@
                                 <td>{{ $patient->blood_group ?? '-' }}</td>
 
                                 <td>{{ $patient->city ?? '-' }}</td>
-
+                                
                                 <td>
-
-                                    <a href="{{ route('patients.edit',$patient->id) }}"
-                                        class="btn btn-warning btn-sm">
+                                   @if($patient->status == 1)
+                                        <span class="badge badge-success">Active</span>
+                                    @else
+                                        <span class="badge badge-danger">Inactive</span>
+                                    @endif 
+                                <td>
+                                    <!-- Edit button (Always Visible) -->
+                                    <a href="{{ route('patients.edit', $patient->id) }}"
+                                    class="btn btn-warning btn-sm">
                                         <i class="fa fa-edit"></i>
                                     </a>
+                                     @if($patient->status == 1)
+                                        <form action="{{ route('patients.destroy', $patient->id) }}"
+                                            method="POST"
+                                            style="display:inline-block;">
 
-                                    <form action="{{ route('patients.destroy',$patient->id) }}"
-                                          method="POST"
-                                          style="display:inline-block">
+                                            @csrf
+                                            @method('DELETE')
 
-                                        @csrf
-                                        @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fa fa-trash"></i>
 
-                                        <button type="submit"
-                                                class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Are you sure?')">
+                                            </button>
 
-                                            <i class="fa fa-trash"></i>
+                                        </form>
 
-                                        </button>
-
-                                    </form>
-
+                                    @endif
                                 </td>
 
                             </tr>
