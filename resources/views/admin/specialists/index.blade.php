@@ -34,10 +34,10 @@
                         <thead class="table-light">
                             <tr>
                                 <th width="60">#</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th width="100">Status</th>
-                                <th width="140">Action</th>
+                                <th data-orderable="false">Name</th>
+                                <th data-orderable="false">Description</th>
+                                <th width="100" data-orderable="false">Status</th>
+                                <th width="140" data-orderable="false">Action</th>
                             </tr>
                         </thead>
 
@@ -58,14 +58,10 @@
                                     </td>
 
                                     <td>
-                                        @if($specialist->status == '1' || $specialist->status == 1 || strtolower((string)$specialist->status) == 'active')
-                                            <span class="status-pill status-active">
-                                                <span class="dot"></span> Active
-                                            </span>
+                                        @if($specialist->status == 1)
+                                            <span class="badge badge-success">Active</span>
                                         @else
-                                            <span class="status-pill status-inactive">
-                                                <span class="dot"></span> Inactive
-                                            </span>
+                                            <span class="badge badge-danger">Inactive</span>
                                         @endif
                                     </td>
 

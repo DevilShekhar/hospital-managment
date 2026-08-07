@@ -10,7 +10,7 @@ class SpecialistController extends Controller
 {
      public function index()
     {
-        $specialists = Specialist::latest()->paginate(10);
+        $specialists = Specialist::whereNull('deleted_at')->latest()->paginate(10);
 
         return view('admin.specialists.index', compact('specialists'));
     }
@@ -56,11 +56,11 @@ class SpecialistController extends Controller
     }
 
     public function destroy(Specialist $specialist)
-{
-    
-    $specialist->update(['status' => 0]);
+    {
+        $specialist->update(['status' => 0]);
+        $specialist->delete();
 
-    return redirect()->route('specialists.index')
-            ->with('success', 'Specialist marked as inactive.');
-}
+        return redirect()->route('specialists.index')
+                ->with('success', 'Specialist deleted and marked inactive.');
+    }
 }
